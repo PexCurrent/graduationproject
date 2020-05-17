@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>登陆</title>
+    <link rel="stylesheet" href="">
+    <script></script>
+</head>
+<body>
+<div style="padding: 15px;">
+
+    <div class="demoTable">
+        搜索商户：
+        <div class="layui-inline">
+            <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload" id="searchbtn">搜索</button>
+    </div>
+    <table class="layui-hide" id="LAY_table_user" lay-filter="useruv" style="line-height: 28px;"></table>
+
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn  layui-btn-mini" lay-event="edit">激活</a>
+</script>
+
+<script>
+
+
+    layui.use('table', function(){
+        var table = layui.table;
+        //方法级渲染
+        table.render({
+
+            elem: '#LAY_table_user'
+            ,url: 'getalluser'
+
+            ,cols: [
+                [
+                    {checkbox: true, fixed: true}
+                    ,{field:'id', title: 'ID', width:80, sort: true, fixed: true}
+                    ,{field: 'acvtor', title: '用户头像', width: 90, templet:'<div><img src="{{ d.acvtor }}" width="300" height="300" onerror="javascript:this.src=\'https://s.moimg.net/new/images/default.jpg\'" class="layui-nav-img"></div>'}
+                    ,{field:'email', title: '邮箱', width:200, sort: true}
+                    ,{field:'phonenum', title: '手机', width:160, sort: true,edit:true}
+                    ,{field:'textArea', title: '介绍', width:100,sort: true}
+                    ,{field:'habitation', title: '居住地', width:230,sort: true}
+                    ,{field:'hometown', title: '家乡', width:230,sort: true}
+                    ,{field: 'isactive', title: '是否激活', width:100,align: "center", templet: function(d){if(d.isactive == 0){return '未激活'}else{return '已激活'}}},
+                    , {field:'right', title: '操作', width:300,toolbar:"#barDemo"}
+                    // ,{field:'datatype', title: '日期类型', width:100}
+                ]
+            ]
+            ,page: true
+            ,height: 600
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                table.reload('LAY_table_user', {
+                    where: {
+                        keyword: demoReload.val()
+
+                    }
+                });
+            }
+        };
+
+        $('#searchbtn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('checkbox(useruv)', function(obj){
+            console.log(obj)
+        });
+
+
+
+        //监听工具条
+        table.on('tool(useruv)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+                // url="/Crowdfunding/"+data.id
+                //
+                // setTimeout("javascript:location.href=url", 1000);
+            } else if(obj.event === 'edit'){
+                layer.confirm('确定激活这个用户吗', function(index){
+                    $.ajax({
+                        url: "activeuser",
+                        type: "POST",
+                        data:{"uvid":data.id,"memthodname":"deleteuv"},
+                        dataType: "json",
+                        success: function(data){
+
+                            if(data.status==0){
+                                layer.msg("激活成功", {icon: 6});
+                                table.reload('LAY_table_user', {
+                                    // where: {
+                                    //     keyword: demoReload.val()
+                                    //
+                                    // }
+                                });
+                            }else{
+                                layer.msg("激活失败", {icon: 5});
+                            }
+                        }
+
+                    });
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                // layer.prompt({
+                //     formType: 2
+                //     ,title: '修改 ID 为 ['+ data.id +'] 的访问量'
+                //     ,value: data.uv
+                // }, function(value, index){
+                //
+                //
+                //
+                //
+                // });
+                // layer.confirm('真的批准通过这个项目吗', function(index){
+                //     $.ajax({
+                //         url: "checkcrowfunding",
+                //         type: "POST",
+                //         data:{"uvid":data.id,"memthodname":"deleteuv"},
+                //         dataType: "json",
+                //         success: function(data){
+                //
+                //             if(data.status!=0){
+                //
+                //
+                //                 layer.msg("审核成功", {icon: 6});
+                //                 table.reload('LAY_table_user', {
+                //                     // where: {
+                //                     //     keyword: demoReload.val()
+                //                     //
+                //                     // }
+                //                 });
+                //             }else{
+                //                 layer.msg("审核失败", {icon: 5});
+                //             }
+                //         }
+                //
+                //     });
+                //     layer.close(index);
+                // });
+
+
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

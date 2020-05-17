@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>登陆</title>
+    <link rel="stylesheet" href="">
+    <script></script>
+</head>
+
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">Pex众筹 后台管理</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item">
+                <a >控制台</a>
+            </li>
+            <li class="layui-nav-item">
+                <a   target="_top" >商品管理</a>
+            </li>
+            <li class="layui-nav-item">
+                <a   target="_top">用户</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">邮件管理</a>
+                    </dd>
+                    <dd>
+                        <a href="">消息管理</a>
+                    </dd>
+                    <dd>
+                        <a href="">授权管理</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">基本资料</a>
+                    </dd>
+                    <dd>
+                        <a href="">安全设置</a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a onclick="confirm_logout()">退出</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a  href="javascript:;" >众筹项目管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a onclick="forwardiframe('/checkpage')">审核项目</a>
+                        </dd>
+                        <dd>
+                            <a onclick="forwardiframe('/ingpage')">在线项目</a>
+                        </dd>
+                        <dd>
+                            <a onclick="forwardiframe('/allpage')">所有项目</a>
+                        </dd>
+
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a  href="javascript:;" >用户管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a  onclick="forwardiframe('/userpage')">用户列表</a>
+                        </dd>
+
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a  href="javascript:;" >订单管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a  onclick="forwardiframe('/refundpage')">退款列表</a>
+                        </dd>
+
+                    </dl>
+                </li>
+
+
+                <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;">列表一</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;">列表二</a>
+                        </dd>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">云市场</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <iframe frameborder="0" scrolling="yes" style="width: 100%" src="/checkpage" id="aa" height="900">
+            </iframe>
+
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+
+</body>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+
+<script>
+
+
+    function  forwardiframe(url){
+        $("iframe").attr("src",url);
+    }
+
+
+    function confirm_logout() {
+        // 调用layer弹窗组前端件
+        layer.open({
+            // 弹窗标题
+            title: "退出账号",
+            // 正文
+            content: "您确认退出账号吗？",
+            // 点击确定按钮后调用的回调函数
+            yes: function(index, layero) {
+                // 指定应当前往的 url
+                // location.href='{% url 'logout'  %}'
+                location.href="/admin/logout"
+            },
+        })
+    }
+
+
+
+
+</script>
+</html>

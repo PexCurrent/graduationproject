@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>发现项目</title>
+
+
+    <link rel="stylesheet" href="https://s.moimg.net/iconfont/iconfont.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="https://s.moimg.net/css/web4.0/pagehf.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="https://s.moimg.net/css/web4.0/md-index.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="">
+    <script></script>
+
+
+
+
+</head>
+
+
+</head>
+
+
+
+
+
+<body class="md-pro-lists" style="background: #f8f8f9;">
+<script th:replace="nav::logoout"></script>
+<nav th:replace="nav2::topbar"></nav>
+<H1 style="text-align: center;margin-top: 25px" th:text="以下是搜索 +${search}+ 的结果"></H1>
+<div class="pro-lists-main">
+    <div class="op_top">
+        <div class="fl">
+            <span style="padding-left: 0px"  th:text="共 +${count}+ 个结果"></span>
+        </div>
+
+
+        <div class="fr">
+            <ul class="sort_list">
+
+
+
+            </ul>
+        </div>
+    </div>
+    <div class="pro_field">
+        <!--项目卡-->
+        <ul class="pro_ul clearfix"  id="tab_list">
+        </ul>
+
+
+    </div>
+    <div id="layui"></div>
+</div>
+
+
+
+
+
+<script>
+
+
+
+
+
+    function addactive(){
+        if($(".sort").hasClass('active')){
+            $(".sort").removeClass('active');
+        }else{
+            $(".sort").addClass('active');
+        }
+    }
+
+
+
+
+    $(function () {
+        initLayPage();
+    });
+
+    /**
+     * 初始化layui分页
+     */
+
+    function initLayPage(pageConf) {
+        if (!pageConf) {
+            pageConf = {};
+            pageConf.pageSize = 8;
+            pageConf.currentPage = 1;
+            pageConf.rule="begin_date";
+
+
+        }
+        $.post("/getsearchcrowfunding", pageConf, function (data) {
+            layui.use(['laypage', 'layer'], function () {
+                var page = layui.laypage;
+                page.render({
+                    elem: 'layui',
+                    count: data.total,
+                    curr: pageConf.currentPage,
+                    limit: pageConf.pageSize,
+                    first: "首页",
+                    last: "尾页",
+                    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+                    jump: function (obj, first) {
+                        if (!first) {
+                            pageConf.currentPage = obj.curr;
+                            pageConf.pageSize = obj.limit;
+                            initLayPage(pageConf);
+                        }
+                    }
+                });
+                fillTable(data.admins, (pageConf.currentPage - 1) * pageConf.pageSize); //页面填充
+            })
+        });
+    }
+
+    //填充表格数据
+    function fillTable(data, num) {
+
+        $("#tab_list").html('');
+        $.each(data, function (index, obj) {
+            // id 很多时候并不是连续的，如果为了显示比较连续的记录数，可以这样根据当前页和每页条数动态的计算记录序号
+            index = index + num + 1;
+            var info = '';
+            info += ' <li>';
+            info += '<a href="/Crowdfunding/'+obj.id+'" ><div class="pro_logo"><img src='+obj.showpic+'  onerror="javascript:this.src=\'https://s.moimg.net/new/images/default.jpg\'"></div></a>';
+            info +='<div class="pro_txt_field">';
+            info+='<a href="/Crowdfunding/'+obj.id+'" ><h3 class="pro_title">'+obj.title+'</h3></a>';
+            info+='              <div class="author">\n' +
+                '                        <a>\n' +
+                '                            <div class="au_logo" style="background: url('+obj.acvtor+') no-repeat center center;background-size: cover; "></div>\n' +
+                '                            <p>'+obj.creatername+ '</p>\n' +
+                '                        </a>\n' +
+                '                    </div>';
+            info+='                    <div class="status_ex" >\n' +
+                '                        <div class="left">\n' +
+                '                            <p class="status_title">\n' +
+                '                                ¥<span >'+obj.currentamout+'</span>\n' +
+                '                            </p>\n' +
+                '                        </div>\n' +
+                '                        <div class="right">\n' +
+                '                            <p class="right percent"><span >'+f(obj.currentamout,obj.targetamount)+'</span></p>\n' +
+                '\n' +
+                '                        </div>\n' +
+                '                    </div>';
+            info+='<div class="yyue_line">\n' +
+                '                        <p class="progress-now"  style="width:‘ +f(obj.currentamout,obj.targetamount)+’;"></p>\n' +
+                '                    </div>\n' +
+                '\n' +
+                '                    <p class="gray_ex" style="padding-top: 0px"><span >'+obj.supporttime+'</span> 支持者</p>\n' +
+                '                </div>\n' +
+                '            </li >'
+
+
+
+
+            $("#tab_list").append(info);
+        });
+    }
+
+
+    function format(point) {
+        const formated = Number(point*100).toFixed(2);
+        return `${formated}%`
+    }
+
+    function f(currentamout,targetamount) {
+        return format(currentamout/targetamount);
+    }
+
+
+</script>
+
+
+
+
+</body>
+</html>

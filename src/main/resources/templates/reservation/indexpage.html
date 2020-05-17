@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>发现项目</title>
+
+
+    <link rel="stylesheet" href="https://s.moimg.net/iconfont/iconfont.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="https://s.moimg.net/css/web4.0/pagehf.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="https://s.moimg.net/css/web4.0/md-index.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="css/all.css">
+    <script></script>
+
+</head>
+
+
+</head>
+
+
+
+
+
+<body class="md-pro-lists" style="background: #f8f8f9;">
+<script th:replace="nav::logoout"></script>
+<nav th:replace="nav2::topbar"></nav>
+<div class="pro-lists-main" id="container">
+
+    <div class="op_top">
+        <div class="fl">
+            发现项目 <span>共 {{count}} 个项目</span>
+        </div>
+        <div class="fr">
+            <ul class="sort_list">
+                <li data-class="time_money" class="sort" onclick="addactive()">
+                    <div>
+                        <span id="sign">最新上线</span>
+                        <i class="iconfont icon-downmore"></i>
+                        <i class="iconfont icon-upmore"></i>
+                    </div>
+                    <ul class="total_sort time_money" data-for-class="time_money" >
+                        <li><a href="/all//preheat/top_time" class="active" rank="top_time">最新上线</a></li>
+                        <li><a href="/all/preheat/hot/" rank="top_money">最热</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="pro_field">
+        <!--项目卡-->
+        <ul class="pro_ul clearfix" >
+
+            <!--预约状态-->
+            <li class="appointment pc_ga_pro_index_16" data-pro-id="96211" v-for="crowdfunding in crowdfundings">
+                <a v-bind:href="'/reservation/'+crowdfunding.id" >
+                    <div class="pro_logo">
+                        <img v-bind:src="crowdfunding.showpic" onerror="javascript:this.src='https://s.moimg.net/new/images/default.jpg'">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a v-bind:href="'/reservation/'+crowdfunding.id" target="_blank"><h3 class="pro_title">{{crowdfunding.title}}</h3></a>
+                    <div class="author">
+                        <a v-bind:href="'/reservation/'+crowdfunding.id">
+                            <div class="au_logo"
+                                 v-bind:style="{ 'background-image': 'url(' + crowdfunding.acvtor + ')','background-repeat':'no-repeat center center' ,'background-size':'cover' }"></div>
+                            <p>{{crowdfunding.creatername}}</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="96211">
+                        <div class="left">
+                            <p class="status_title" > {{crowdfunding.begin_date}}  开始</p>
+                        </div>
+                        <div class="appointment-btn right " data-pro-id="96211">
+
+                            <span class="appointment" v-if="crowdfunding.isreservation==0" v-on:click="reservation(crowdfunding.id)"><i class="iconfont icon-clock"></i> 预约</span>
+                            <span class="appointment "  style="color: #BCBFC3;border: 1px solid #BCBFC3;width: 70px" v-if="crowdfunding.isreservation==1" v-on:click="que(crowdfunding.id)"><i class="iconfont icon-clock"></i> 已预约</span>
+                        </div>
+                    </div>
+                    <div class="yyue_line"></div>
+                    <p class="gray_ex" pro_id="96211" style="padding-top: 0px"><span >{{crowdfunding.reservationnum}}</span> 人已预约</p>
+                </div>
+            </li>
+
+            <!--预约状态-->
+
+
+
+        </ul>
+        <div class="page">
+            <div class="number clearfix" data-type='page'>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var app=new Vue({
+        el:"#container",
+        data:{
+            crowdfundings:{},
+            count:0,
+        },
+
+
+
+
+        created(){
+            fetch("/getreservation",
+
+            )
+                .then(response=>response.json())
+                .then(json=>{
+                    this.crowdfundings=json['crowdfundings'];
+                    console.log(this.crowdfundings)
+                    this.count=json["count"];
+                    console.log(this.count)
+                    if (json['way']==='top_time'){
+                        $("#sign").html("最新上线")
+
+                    }else{
+                        $("#sign").html("最热")
+                    }
+                    $("div[data-type='page']").empty().append(page_list(json['cur_page'], json['page_count']));
+
+
+                    // console.log(json["crowdfundings"])
+
+
+                })
+        },
+
+
+        methods:{
+            reservation:function (index) {
+        console.log(index)
+                var cid=parseInt(index);
+                $.ajax({
+                    url: "/reservationcrowdfunding",
+                    type: "POST",
+                    data:{"cid":cid},
+                    dataType: "json",
+                    success: function(data){
+
+                        if(data["status"]==1){
+
+
+                            layer.msg(data['msg'], {icon: 6});
+                            setTimeout(window.location.reload(), 3000);
+                        }else{
+                            layer.msg(data['msg'], {icon: 5});
+                        }
+                    }
+
+                });
+
+
+
+            },
+            que:function (index) {
+                var cid=parseInt(index);
+                $.ajax({
+                    url: "/delreservation",
+                    type: "POST",
+                    data:{"cid":cid},
+                    dataType: "json",
+                    success: function(data){
+
+                        if(data["status"]==1){
+
+
+                            layer.msg(data['msg'], {icon: 6});
+                            setTimeout(window.location.reload(), 3000);
+                        }else{
+                            layer.msg(data['msg'], {icon: 5});
+                        }
+                    }
+
+                });
+            }
+
+
+
+        }
+
+
+
+    })
+
+
+
+    function page_list(cur_page, page_count) {
+        cur_page = parseInt(cur_page);
+        page_count = parseInt(page_count);
+        var html = '';
+
+        if (cur_page > 1) {
+            html += '<a href="/all/preheat/top_time/' + (cur_page - 1) + '" page="' + (cur_page - 1) + '" class="ico"><i class="iconfont icon-leftmore"></i> </a>';
+        }
+        var page_start = 0, page_end = 0;
+        page_start = cur_page > 2 ? cur_page - 2 : 1;
+        page_end = (cur_page + 2) > page_count ? page_count : cur_page + 2;
+        if (page_start = 1) {
+            html += '<a href="/all/preheat/top_time/1" page="1">1</a>';
+        }
+        if (page_start > 1) {
+            html += '<a href="/all/preheat/top_time/1" page="1">1</a>';
+        }
+        if (page_start > 2) {
+            html += '<span>...</span>';
+        }
+        for (var i = page_start; i <= page_end; i++) {
+            html += '<a href="/all/preheat/top_time/' + i + '" page="' + i + '" ' + (cur_page == i ? ' class="active"' : '') + '>' + i + '</a>';
+        }
+        if (page_count - 1 > page_end) {
+            html += '<span>...</span>';
+        }
+        if (page_count > page_end) {
+            html += '<a href="/all/preheat/top_time/' + page_count + '" page="' + page_count + '">' + page_count + '</a>';
+        }
+        if (cur_page < page_count) {
+            html += '<a href="/all/preheat/top_time/' + (cur_page + 1) + '" page="' + (cur_page + 1) + '" class="next"><i class="iconfont icon-nestmore"></i> </a>';
+        }
+        return html;
+    }
+</script>
+
+
+
+
+<script language='javascript'>
+
+
+    function addactive(){
+        if($(".sort").hasClass('active')){
+            $(".sort").removeClass('active');
+        }else{
+            $(".sort").addClass('active');
+        }
+    }
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

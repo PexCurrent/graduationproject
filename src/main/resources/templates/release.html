@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+
+    <title>发布项目</title>
+
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/web4.0/pagehf.css">
+
+
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/nav_side.css">
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/user_index.css">
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/bank_card.css">
+    <link rel="stylesheet" href="/css/useredit.css">
+    <link rel="stylesheet" href="https://s.moimg.net/activity/css/zc_create_list.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="/css/cropper.min.css">
+    <link rel="stylesheet" href="/css/sitelogo.css" >
+    <link href="css/bwizard.min.css">
+    <link rel="stylesheet" href="css/crowdfunding_gear.css">
+    <link href="css/wizard.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layer/layer.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cropper.min.js"></script>
+    <script src="js/sitelogo.js"></script>
+    <script src="js/bwizard.min.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
+
+
+
+</head>
+<body>
+<script th:replace="nav::logoout"></script>
+<nav th:replace="nav::topbar"></nav>
+
+
+
+<div class="main-wrap clearfix" data-type="user_info_edit" id="container" >
+
+
+    <div class="nav-side">
+        <div class="item header">
+            <a href="https://me.modian.com/u/user_index">
+                <div class="logo me_nickname_icon"><img  v-bind:src="user.acvtor" class="logo"> <p>{{user.username}}</p></div>
+            </a>
+        </div>
+
+
+        <div class="item" id="subscribe_project" style="display:none;">
+            <h4>我的云养计划</h4>
+        </div>
+        <div class="item" id="my_dynamic" style="">
+            <h4>我的项目</h4>
+            <ul>
+                <li data-type="dynamic" ><a href="/release">发布众筹</a></li>
+                <li data-type="manager"><a href="#">众筹管理</a></li>
+
+            </ul>
+        </div>
+
+
+        <div class="item" id="my_founction" style="display:none;">
+            <h4>基金会管理</h4>
+            <ul>
+                <li data-type="affiche_list"><a href="#">信息公告</a></li>
+
+
+                <li data-type="user_raise_list"><a href="#">我参与的云养计划</a></li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <h4>我的项目信息</h4>
+            <ul>
+                <li data-type="create"><a href="/mycrowdfunding">发起的项目 <span id="pro_num"></span></a></li>
+
+            </ul>
+        </div>
+        <div class="item">
+            <h4>订单信息</h4>
+            <ul>
+                <li data-type="index"><a href="/myorder">我的订单</a></li>
+
+            </ul>
+        </div>
+        <div class="item">
+            <h4>我的设置</h4>
+            <ul>
+                <li class="user_info_edit active" data-type="info"><a href="/useredit">个人资料</a></li>
+                <li class="user_auth_view" data-type="auth_console"><a href="#">账号认证</a></li>
+
+                <li data-type="delivery_address"><a href="#">管理地址薄</a></li>
+                <li data-type="safe"><a href="#">账户与安全</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="main_right self user_auth">
+        <div class="column detail">
+            <p>发布项目</p>
+            <p></p>
+        </div>
+
+
+        <div id="step1" >
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">基本信息</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-12">
+
+
+
+
+
+                        <div class="ibox-content">
+                              <div class="row">
+                                 <div id="crop-avatar" class="col-md-6">
+                                    <div class="avatar-view" title="点击更换图片" >
+                                       <img   src="https://s.moimg.net/new/images/default.jpg"  id="acvtor">
+                                    </div>
+                                 </div>
+                              </div>
+                        </div>
+
+
+                        <div class="form-group input-group ">
+                            <label  style="font-size: 20px"><H4><strong>项目标题*</strong></H4></label>
+                            <input type="text" name="crowdfunding.title" class="form-control" id="title" placeholder="请输入项目名称，不超过26个字" maxlength="20" onblur="checktitle()" required>
+                            <span class="help-block">标题中需带有产品名称及类别，可添加宣传语作为副标题</span>
+                            <span style="color: red" class="glyphicon-warning-sign" id="warm4"></span>
+                        </div>
+
+                        <div class="form-group ">
+                            <label  style="font-size: 20px"><H4><strong>项目简介 *</strong></H4></label>
+                            <textarea name="crowdfunding.content" cols="40" rows="10" class="form-control" id="content" placeholder="请输入项目简介，不超过150个字" maxlength="200" onblur="checkcontent()" required>
+                            </textarea>
+                            <span style="color: red" class="glyphicon-warning-sign" id="warm2"></span>
+                            <span class="help-block"> 简介需清晰准确地阐述项目核心内容，会随项目被分享到社交平台</span>
+                        </div>
+
+
+
+
+
+
+                        <label  style="font-size: 20px"><H4><strong>众筹时长*    </strong></H4></label>
+                        <div class="form-group ">
+
+                            期望开始时间<div class="layui-inline form-group has_original"> <!-- 注意：这一层元素并不是必须的 -->
+                            <input type="text" name="crowdfunding.begin_date" class="layui-input form-control" id="startTime" readonly="" maxlength="20" required>
+
+                        </div><strong  >----</strong>
+                            结束时间<div class="layui-inline form-group"> <!-- 注意：这一层元素并不是必须的 -->
+                            <input type="text" name="crowdfunding.end_date" class="layui-input form-control has_original" id="endTime" onblur="checktime()" readonly="" maxlength="20" required>
+
+                        </div>
+                            <span style="color: red" class="glyphicon-warning-sign" id="warm"></span>
+                        </div>
+
+                        <label style="font-size: 20px"><H4><strong>目标金额 *</strong></H4></label>
+                        <div class="form-group input-group ">
+
+                            <input type="text" name="" value="0" class="form-control" id="targetamount" placeholder="慎重填写，一旦填写不能修改" onblur="checktargetamount()" required>
+                        </div>
+
+                        <span style="color: red" class="glyphicon-warning-sign" id="warm1"></span>
+                        <span class="help-block">以元为基本单位，制定金额目标，众筹结束后，如达到或超出将由Pex众筹在扣除相应费率后结算给你，如未达到将全额退款给支持者。</span>
+                        <button type="button" class="btn btn-success" onclick="ischecksetp1()" >下一步</button>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div id="step2" style="display: none">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">详情编辑</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                         <textarea name="crowdfunding.details" id="details" rows="10" cols="150">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+
+
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="getnext('step1')">上一步</button>
+                    <button type="button"  class="btn btn-success" onclick="getnext('step3')">下一步</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="step3" style="display: none">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">回报设置</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="edit-no-payback">
+                        <div class="main-inner">
+                            <div class="edit-no-payback">
+                                <div class="sec sec3">
+
+                                    <h4>无偿支持档 <em>*</em></h4>
+                                    <div class="payback-list clearfix">
+                                        <div class="payback-name">无偿支持</div>
+                                        <div class="payback-main">
+                                            <h3 class="payback-title clearfix"><span>无偿支持</span></h3>
+                                            <div class="payback-content">
+                                                <div class="description">
+                                                    <p>选择此项，项目成功后发起人将不会给您发放回报。感谢您对这个项目的无偿支持。</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <br>
+
+                                    <div  id="sec1">
+                                        <p class="prompt-txt">系统默认置顶，不可修改或删除。此档位不需要给支持用户发放回报</p>
+                                        <span style="color: red" class="glyphicon-warning-sign" id="submitwarm"></span>
+                                        <span style="color: red" class="glyphicon-warning-sign" id="gearwarm"></span>
+
+                                        <div class="edit-payback">
+                                            <h4>设置回报档位<em>*</em></h4>
+                                            <div id="drag-container">
+                                            </div>
+                                            <div class=" new-payback-list payback-list " data-detail="">
+                                                <div class="inner-wrap clearfix">
+                                                    <div class="edit-main">
+                                                        <div class="clearfix money">
+                                                            <div class="l">支持金额 <em>*</em></div>
+                                                            <div class="r">
+                                                                <span class="currency">￥</span>
+                                                                <input type="text" name="gear.supportAmount" id='supportAmount' class="reward_money" placeholder="请输入档位金额" onkeyup="value=value.replace(/[^\d]/g,'')">
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix tit">
+                                                            <div class="l">回报标题 <em>*</em></div>
+                                                            <div class="r">
+                                                                <input type="text" name="gear.title" id="gear_title" class="reward_title statistics" placeholder="请输入回报标题，最多10个汉字" data-count="1">
+                                                                <span class="word-count"><em class="current">0</em>/<em data-max="10" class="max">10</em></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix des">
+                                                            <div class="l">回报描述 <em>*</em></div>
+                                                            <div class="r">
+                                                                <!--<textarea name="content" class="reward_content statistics" style="overflow-y:visible"></textarea>-->
+
+                                                                <textarea  class="geartextarea" name="gear.introduction"  id="gear_describe" placeholder="建议格式是：序号.回报内容 * 数量&#13;&#10;示例：1.实体书*1" ></textarea>
+                                                                <!--<span class="word-count" style="display:none;"><em class="current">0</em>/<em data-max="10000" class="max">10000</em></span>-->
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="clearfix pic">
+                                                            <div class="l">回报图片</div>
+                                                            <div class="r">
+                                                                <div class="upload-pic clearfix">
+                                                                    <div class="upload-item">
+                                                                        <div id="preview" class="preview">
+                                                                            <input type="file" accept="image/*" name="img" id="file" value="" class="file"/>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <p class="prompt-txt">400px*400px 100K以内</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="clearfix time">
+                                                            <div class="l">回报发放日期 <em>*</em></div>
+                                                            <div class="r">
+                                                                <div class="item year">
+                                                                    年份
+                                                                    <select name="release_year" id="release_year">
+                                                                        <option value="2020">2020</option>
+                                                                        <option value="2021">2021</option>
+                                                                    </select>
+                                                                    <span class="arrow"><i class="iconfont icon-upmore"></i><i class="iconfont icon-downmore"></i></span>
+                                                                </div>
+                                                                <div class="item month">
+                                                                    月份
+                                                                    <select name="release_month" class="month-selector" id="release_month">
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                        <option value="11">11</option>
+                                                                        <option value="12">12</option>
+                                                                    </select>
+                                                                    <span class="arrow"><i class="iconfont icon-upmore"></i><i class="iconfont icon-downmore"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix way">
+                                                            <div class="l">回报发放方式<em>*</em></div>
+                                                            <div class="r">
+                                                                <div class="payback-way">
+
+                                                                    <select name="release_way" id="release_way">
+                                                                        <option value="实物邮寄">实物邮寄</option>
+                                                                        <option value="虚拟回报">虚拟回报</option>
+                                                                        <option value="实物邮寄+虚拟回报">实物邮寄+虚拟回报</option>
+                                                                    </select>
+                                                                    <span class="arrow"><i class="iconfont icon-upmore"></i><i class="iconfont icon-downmore"></i></span>
+                                                                </div>
+                                                                <p class="prompt-txt">虚拟回报仅收集手机号；实物邮寄收集用户姓名、地址和手机号</p>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-primary" onclick="getnext('step2')">上一步</button>
+                                            <button type="submit" class="btn btn-primary" onclick="return sumbit();">提交</button>
+
+                                        </div>
+                                    </div>
+                                    <div style="position: fixed;right:3px;top: 105px">  </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+                        </div>
+                        </div>
+</div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label"
+         role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form class="avatar-form"
+                      action="/crowdfundingimgupload"
+                      enctype="multipart/form-data" method="post">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" type="button">&times;</button>
+                        <h4 class="modal-title" id="avatar-modal-label">请选择头像</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="avatar-body">
+                            <div class="avatar-upload">
+                                <input class="avatar-src" name="avatar_src" type="hidden">
+                                <input class="avatar-data" name="avatar_data" type="hidden">
+                                <label for="avatarInput">图片上传</label>
+                                <input class="avatar-input" id="avatarInput" name="avatar_file"
+                                       type="file">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="file-type">
+                                        支持JPG，PNG，图片小于<em>1MB</em>，尺寸<em>不小于180*180</em>，真实高清头像更受欢迎！
+                                    </div>
+                                    <div class="avatar-wrapper">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="title">头像预览</div>
+                                    <div class="avatar-preview preview-md">
+                                    </div>
+                                    <div class="avatar-btns">
+                                        <button class="btn btn-primary" type="submit" v-on:click="checkimg">
+                                            保存修改
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+     var imgfile;
+    window.onload=function(){
+        var eleFile = document.querySelector('#file');
+        eleFile.addEventListener('change', function() {
+            console.log("yesyes");
+
+            var file = this.files[0];
+            imgfile=this.files[0]
+            // 确认选择的文件是图片
+            console.log(file);
+
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e) {
+                // 图片base64化
+                var newUrl = this.result;
+                console.log(newUrl)
+                eleFile.parentElement.style.backgroundImage = 'url(' + newUrl + ')';
+            };
+
+        });
+    };
+
+</script>
+
+                <script>
+
+
+                   var checkimg=false;
+                    $("#image").on('change', function () {
+
+                        if (typeof (FileReader) != "undefined") {
+
+                            var image_holder = $("#image-holder");
+                            image_holder.empty();
+
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $("<img />", {
+                                    "src": e.target.result,
+                                    "class": "thumb-image",
+                                    "style":"width:200px",
+                                }).appendTo(image_holder);
+
+                            }
+                            image_holder.show();
+                            reader.readAsDataURL($(this)[0].files[0]);
+                        } else {
+                            alert("你的浏览器不支持FileReader.");
+                        }
+                    });
+
+
+
+                    function checktitle() {
+                        var check=false;
+                        var val=document.getElementById("title").value;
+                        console.log(val)
+                        if(val==''||val==null){
+                            $("#warm4").html("标题不能不空");
+                            check=false;
+                            return check;
+                        }else{
+                            check=true;
+                            return check;
+
+                        }
+                    }
+
+
+                    function checkcontent() {
+                        var check=false;
+                        var val=document.getElementById("content").value;
+                        if(val==''||val==null){
+                            $("#warm2").html("项目简介不能为空");
+                            check=false;
+                            return check;
+                        }else{
+                            check=true;
+                            return check;
+                        }
+                    }
+                    function checktime() {
+                        var check=false;
+                        var starttime=document.getElementById("startTime").value;
+                        var endtime=document.getElementById("endTime").value;
+                        if(starttime==""){
+                            $("#warm").html("开始日期不能为空");
+                            check=false;
+                            return check;
+                        }
+                        else{
+                            var date1 = new Date(starttime);
+                            var date2 = new Date(endtime);
+                            var s1 = date1.getTime();
+                            var s2 = date2.getTime();
+                            var total = (s2 - s1)/1000;
+                            var day = parseInt(total/(24*60*60));//计算整数天数
+
+                            if(day<=90&&day>=20){
+                                check=true;
+                                return check;
+                            }else {
+                                check=false;
+                                return check;
+                                $("#warm").html("众筹持续时间，一般需要大于20天，小于90天");
+                            }
+
+                        }
+                        // $("#warm").html("众筹持续时间，一般需要大于20天，小于90天，否则审核不易通过")
+                    }
+                    function checktargetamount() {
+                        var check=false;
+                        var val=document.getElementById("targetamount").value;
+                        // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
+                        if(val =="" || val ==null){
+                            $("#warm1").html("请输入众筹的金额");
+                            check=false;
+                            return check;
+                        }else {
+                            if(!isNaN(val)){
+
+                                check=true;
+                                return check;
+
+                            }else{
+                                check=false;
+
+                                $("#warm1").html("请输入正确的金额")
+                                return check;
+
+                            }
+                        }
+                    }
+
+                    function ischecksetp1() {
+                       if(!checkimg){
+                           layer.msg('请上传项目封面图片',{icon:2,zIndex:layer.zIndex+100});
+                       }
+                       else  if(!checktitle()){
+                           layer.msg('请检查您的项目标题',{icon:2,zIndex:layer.zIndex+100});
+                       }
+                     // if(!checktitle()){
+                     //        layer.msg('请检查您的项目标题',{icon:2,zIndex:layer.zIndex+100});
+                     //    }
+                       else  if(!checkcontent()){
+                            layer.msg('请检查您的项目介绍',{icon:2,zIndex:layer.zIndex+100});
+                        }
+                       else  if(!checktime()){
+                            layer.msg('请检查您的项目时间范围',{icon:2,zIndex:layer.zIndex+100});
+                        }
+                       else  if(!checktargetamount()){
+                            layer.msg('请检查您的众筹目标金额',{icon:2,zIndex:layer.zIndex+100});
+                        }
+                       else   {
+                            getnext("step2");
+                        }
+
+
+
+
+                    }
+                    function getnext(i){
+
+                            var sz=new Array("step1","step2","step3");
+                            for(var j=0;j<sz.length;j++){
+                                if(i==sz[j]){
+                                    document.getElementById(i).style.display="block";
+                                }else{
+                                    document.getElementById(sz[j]).style.display="none";
+                                }
+                            }
+                        }
+
+                    $("#avatar").on('change', function () {
+
+                        if (typeof (FileReader) != "undefined") {
+
+                            var image_holder = $("#image-holder");
+                            image_holder.empty();
+
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $("<img />", {
+                                    "src": e.target.result,
+                                    "class": "thumb-image",
+                                    "style":"width:200px",
+                                }).appendTo(image_holder);
+
+                            }
+                            image_holder.show();
+                            reader.readAsDataURL($(this)[0].files[0]);
+                        } else {
+                            alert("你的浏览器不支持FileReader.");
+                        }
+                    });
+
+
+                    $('.geartextarea').on('input', function(){
+                        this.style.height = 'auto';
+                        this.style.height = this.scrollHeight + "px";
+                    });
+
+                    function sumbit() {
+                        $("#gearimgform").submit();
+                        supportAmount=document.getElementById('supportAmount').value;
+                        title=document.getElementById('gear_title').value;
+                        describe=document.getElementById('gear_describe').value;
+                        if(supportAmount==null||supportAmount==""){
+                            layer.msg('档位金额是必填项',{icon:2,zIndex:layer.zIndex+100});
+                        }
+                       else if (title==null||title==""){
+                            layer.msg('档位标题是必填项',{icon:2,zIndex:layer.zIndex+100});
+                        }
+                       else if(describe==null||describe==""){
+                            layer.msg('档位描述必填项',{icon:2,zIndex:layer.zIndex+100});
+                        }
+                       else{
+                            var title=$("#title").val();
+                            var content=$("#content").val();
+                            var details=CKEDITOR.instances.details.getData(); //获取CKEDITOR的值
+                            var startTime=$("#startTime").val();
+                            var endTime=$("#endTime").val();
+                            var targetamount=parseInt($("#targetamount").val());
+
+                            var supportAmount=parseInt($("#supportAmount").val());
+                            var  gear_title=$("#gear_title").val();
+                            var  gear_describe=$("#gear_describe").val();
+                            var file=$("#file").val();
+                            var imgfile=$('#file')[0].files[0]
+                            var release_year=$("#release_year").val();
+                            var release_month=$("#release_month").val();
+                            var release_way=$("#release_way").val();
+
+
+
+
+
+
+                            var formData=new FormData();
+                            formData.append("file",$("#file")[0].files[0]);
+                            $.ajax({
+                                type:"post",
+                                url:"/uploadimgfile",
+                                data:formData,
+                                contentType: false,
+                                processData: false,
+                                dataType:"json",
+                                success:function(res){
+                                },
+                                error:function (msg) {
+                                }
+                            })
+
+
+
+
+                            var gear={
+                                supportAmount:supportAmount,
+                                title:gear_title,
+                                introduction:gear_describe,
+                                release_year:release_year,
+                                release_month:release_month,
+                                way:release_way,
+
+                            };
+                            var crowdfunding={
+                                title:title,
+                                content:content,
+                                begin_date:startTime,
+                                end_date:endTime,
+                                introduction:details,
+                                targetamount:targetamount,
+                                gear:gear,
+                                details:details,
+
+                            };
+
+                            console.log(crowdfunding);
+                            console.log(gear);
+
+                            console.log(details)
+                            $.ajax("/postrelease",{
+                                    type:"post",
+                                    dataType:"json",
+                                    data: JSON.stringify(crowdfunding),
+
+
+
+                                    contentType:"application/json",
+                                    success:function () {
+
+                                        layer.msg('成功',{icon:1,zIndex:layer.zIndex+100});
+                                        setTimeout("javascript:location.href='/index'", 2000);
+                                    },
+                                    error:function () {
+                                        layer.msg('登陆失败 未知错误',{icon:2,zIndex:layer.zIndex+100});
+
+                                    }
+                                }
+
+                            );
+
+                        }
+
+
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+    var img_url=$('#crowdfundingimge').attr('src');
+    var app=new Vue({
+        el:"#container",
+
+        data:{
+            img:img_url,
+
+            user:{},
+        },
+
+        created(){
+            fetch("/getuserbyid",
+
+            )
+                .then(response=>response.json())
+                .then(json=>{
+                    this.user=json;
+                    console.log(this.user);
+                    console.log("____");
+                    console.log(json)
+
+                })
+        },
+        methods:{
+            checkimg:function () {
+             checkimg=true;
+            }
+        },
+
+
+    });
+
+
+
+
+
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    //渲染富文本文件
+
+</script>
+<script>
+    CKEDITOR.replace( 'details' );
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        var startTime =laydate.render({
+            elem: '#startTime',
+            type: 'date',
+            min:0,
+            calendar: true,
+            lang: 'ch',
+            done: function(value, date, endDate) {
+                endLayDate.config.min = {
+                    year: date.year,
+                    month: date.month - 1,
+                    date: date.date,
+
+                    /* hours: date.hours,
+                     minutes: date.minutes,
+                     seconds: date.seconds +1*/
+                };
+                endLayDate.config.max={
+                    year:date.year,
+                    month:data.month-1,
+                    date:data.data+89,
+                };
+
+//
+            },
+        });
+        /*时间插件*/
+        var endLayDate = laydate.render({
+            elem: '#endTime',
+            type: 'date',
+            max: '2035-12-31 12:30:00',
+            btns: ['clear', 'confirm'],  //clear、now、confirm
+            done: function(value, date, endDate) {
+                startTime.config.max = {
+                    year: date.year,
+                    month: date.month - 1,
+                    date: date.date,
+                    /*  hours: date.hours,
+                      minutes: date.minutes,
+                      seconds: date.seconds -1*/
+                };
+                startTime.config.min={
+                    year: date.year,
+                    month: date.month - 1,
+                    date: date.date+89,
+                }
+
+            },
+        });
+
+    });
+
+</script>
+
+
+
+<style type="text/css">
+    .preview {
+        display: inline-block;
+        width: 103px;
+        height: 103px;
+        position: relative;
+        background-image: url(/img/1.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .file {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+        z-index: 5;
+    }
+</style>
+
+
+</body>
+</html>

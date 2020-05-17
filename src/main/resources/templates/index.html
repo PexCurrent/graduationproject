@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>首页</title>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="/js/imagesloaded.js"></script>
+    <script src="/js/smartresize.js"></script>
+    <script src="/js/jquery.skidder.js"></script>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/htmleaf-demo.css">
+    <link rel="stylesheet" href="/css/jquery.skidder.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://s.moimg.net/iconfont/iconfont.css?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+</head>
+<body>
+<nav th:replace="nav::topbar"></nav>
+<script th:replace="nav::logoout"></script>
+<div class="htmleaf-container" style="margin-bottom: 0px">
+    <div class="slideshow" style="height: 0; margin-top:15px;overflow: hidden">
+        <div class="slide"><img src="img/1.jpg"></div>
+        <div class="slide"><img src="img/2.jpg"></div>
+        <div class="slide"><img src="img/3.jpg"></div>
+        <div class="slide"><img src="img/4.jpg"></div>
+        <div class="slide"><img src="img/5.jpg"></div>
+    </div>
+    <!--<div class="slideshow-nocycle" style="height: 0; overflow: hidden">
+          <div class="slide"><img src="./images/1000x400_b.png"></div>
+          <div class="slide"><img src="./images/300x500_p.png"></div>
+          <div class="slide"><img src="./images/500x300_y.png"></div>
+          <div class="slide"><img src="./images/300x500_p.png"></div>
+        </div> -->
+
+    <!--<div class="slideshow">
+
+          <div class="slide" style="background: green;">Text 1</div>
+          <div class="slide" style="background: red;">Text 2</div>
+          <div class="slide" style="background: yellow;">Text 3</div>
+          <div class="slide" style="background: blue;">Text 4</div>
+
+    </div> -->
+
+</div>
+<div class="hot-24">
+    <div class="hot-left">
+        <h3 class="title">24小时金额榜</h3>
+        <div class="line"></div>
+        <div class="hot-left-main">
+            <ul class="rank">
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+
+            <dl class="detail pc_ga_rank_60345">
+                <dt class="pc_ga_rank_index_60345"><a target="_blank" href="http://39.96.6.181/crowdfunding/106"><img src="https://p.moimg.net/project/project_20190521_1558417983_7766.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="" /></a></dt>
+                <dd>
+                    <h3 class="item-title"><a target="_blank" href="http://39.96.6.181/crowdfunding/106">「喵星人降临计划」B.CAT太空舱充电宝系列首发！</a></h3>
+                    <div class="project-sponsor">
+                        <a target="_blank" href="https://me.modian.com/u/detail?uid=5488247">
+                            <span class="avater"><img src="https://tvax2.sinaimg.cn/crop.0.0.1080.1080.180/006G2ZrDly8g09bdiifbvj30u00u0acn.jpg" alt=""></span>
+                            <span class="nickname">黄油猫CAT</span>
+                        </a>
+
+                    </div>
+                    <div class="item-intro">在一般人的印象中，充电宝是手机的附属品；饲养宠物除了需要一定的物质基础外，也需要相当的精力与时间。我们想将大家对宠物的爱融入日常用品中。“黄油猫”希望能让更多的人在使用产品时既...</div>
+                    <div class="project-info">
+                        <div class="amount"><i class="all">￥<span backer_money='60345'>451,11</span></i><i class="percent"><span rate="60345" ></span>100%</i></div>
+                        <div class="progress"><p class="progress-now inner" pro_id="60345" style='width:100%'></p></div>
+                        <div class="people"><i class="supporter"><span backer_count='60345'>1504</span></i> 支持者 · <i class="comment"><span comment_count='60345'>810</span></i> 条评论</div>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="detail pc_ga_rank_60175">
+                <dt class="pc_ga_rank_index_60175"><a target="_blank" href="http://39.96.6.181/crowdfunding/106"><img src="https://p.moimg.net/project/project_20190515_1557897325_9902.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="" /></a></dt>
+                <dd>
+                    <h3 class="item-title"><a target="_blank" href="http://39.96.6.181/crowdfunding/106">《哈利?波特:艺术设定集》中文版首发</a></h3>
+                    <div class="project-sponsor">
+                        <a target="_blank" href="https://me.modian.com/u/detail?uid=5210946">
+                            <span class="avater"><img src="https://p.moimg.net/project/project_20190429_1556529714_9235_crop.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100" alt=""></span>
+                            <span class="nickname">新星出版社</span>
+                        </a>
+
+                    </div>
+                    <div class="item-intro">《哈利?波特：艺术设定集》收录了1000多幅从小说到电影原型的艺术作品，涵盖众多从未公开过的场景建构图、概念草图、故事分镜及蓝图等。作品在国外一经面世就好评如潮，被硬核哈迷们评价为...</div>
+                    <div class="project-info">
+                        <div class="amount"><i class="all">￥<span backer_money='60175'>260,6</span></i><i class="percent"><span rate="60175">100</span>%</i></div>
+                        <div class="progress"><p class="progress-now inner" pro_id="60175" style='width:100%'></p></div>
+                        <div class="people"><i class="supporter"><span backer_count='60175'>692</span></i> 支持者 · <i class="comment"><span comment_count='60175'>459</span></i> 条评论</div>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="detail pc_ga_rank_57780">
+                <dt class="pc_ga_rank_index_57780"><a target="_blank" href="http://39.96.6.181/crowdfunding/106"><img src="https://p.moimg.net/project/project_20190429_1556520021_7180.jpeg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="" /></a></dt>
+                <dd>
+                    <h3 class="item-title"><a target="_blank" href="http://39.96.6.181/crowdfunding/106">《漫威：绝密档案》——漫威官方互动解谜游戏书</a></h3>
+                    <div class="project-sponsor">
+                        <a target="_blank" href="https://me.modian.com/u/detail?uid=1497053">
+                            <span class="avater"><img src="https://p.moimg.net/ico/2019/04/21/20190421_1555776068_4601.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100" alt=""></span>
+                            <span class="nickname">徐奥林Olym</span>
+                        </a>
+
+                    </div>
+                    <div class="item-intro">《漫威：绝密档案》是首款漫威主题创意互动解谜游戏书。这套含近50件档案和道具的游戏书，能让你化身一名神盾局特工，与超级英雄并肩作战，化解世界危机；更能让你了解超级英雄的传奇故事，...</div>
+                    <div class="project-info">
+                        <div class="amount"><i class="all">￥<span backer_money='57780'>5,444</span></i><i class="percent"><span rate="57780">80</span>%</i></div>
+                        <div class="progress"><p class="progress-now inner" pro_id="57780" style='width:80%'></p></div>
+                        <div class="people"><i class="supporter"><span backer_count='57780'>12712</span></i> 支持者 · <i class="comment"><span comment_count='57780'>5779</span></i> 条评论</div>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="detail pc_ga_rank_58114">
+                <dt class="pc_ga_rank_index_58114"><a target="_blank" href="http://39.96.6.181/crowdfunding/107"><img src="https://p.moimg.net/project/project_20190514_1557797186_4735_crop.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="" /></a></dt>
+                <dd>
+                    <h3 class="item-title"><a target="_blank" href="http://39.96.6.181/crowdfunding/107">绘卷盘丝洞：十米长卷开启西游妖幻境界</a></h3>
+                    <div class="project-sponsor">
+                        <a target="_blank" href="https://me.modian.com/u/detail?uid=5587642">
+                            <span class="avater"><img src="https://p.moimg.net/ico/2019/05/02/20190502_1556763281_2765.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100" alt=""></span>
+                            <span class="nickname">搜神记</span>
+                        </a>
+
+                    </div>
+                    <div class="item-intro">一缕烟霞散彩，一卷不朽神话：作品是[新古典中国神话系列]的开篇之作，内容改编自西游记最古老版本的精彩章节，十米长卷描绘三藏师徒降服盘丝洞群妖的故事，并附有全彩重绘的原著插图真迹，...</div>
+                    <div class="project-info">
+                        <div class="amount"><i class="all">￥<span backer_money='58114'>25,948</span></i><i class="percent"><span rate="58114"></span>%</i></div>
+                        <div class="progress"><p class="progress-now inner" pro_id="58114" style='width:0%'></p></div>
+                        <div class="people"><i class="supporter"><span backer_count='58114'>45</span></i> 支持者 · <i class="comment"><span comment_count='58114'>181</span></i> 条评论</div>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="detail pc_ga_rank_56147">
+                <dt class="pc_ga_rank_index_56147"><a target="_blank" href="http://39.96.6.181/crowdfunding/107"><img src="https://p.moimg.net/project/project_20190409_1554799878_6435.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="" /></a></dt>
+                <dd>
+                    <h3 class="item-title"><a target="_blank" href="http://39.96.6.181/crowdfunding/107">末那末匠×《懒东西》手办：陪我躺会吧，一起做个懒东西</a></h3>
+                    <div class="project-sponsor">
+                        <a target="_blank" href="https://me.modian.com/u/detail?uid=5112011">
+                            <span class="avater"><img src="https://tvax2.sinaimg.cn/crop.0.0.453.453.180/006IQ98Cly1fd644gykzdj30cm0cmgm2.jpg" alt=""></span>
+                            <span class="nickname">末那-末匠</span>
+                        </a>
+
+                    </div>
+                    <div class="item-intro">中国艺术家guodong以当下人们放松的状态为灵感，化为一个个生动有趣的动物形象，并由中国知名手办品牌末那末匠，联名推出衍生品众筹活动。</div>
+                    <div class="project-info">
+                        <div class="amount"><i class="all">￥<span backer_money='56147'>1,453,163.42</span></i><i class="percent"><span rate="56147"></span>%</i></div>
+                        <div class="progress"><p class="progress-now inner" pro_id="56147" style='width:0%'></p></div>
+                        <div class="people"><i class="supporter"><span backer_count='56147'>5323</span></i> 支持者 · <i class="comment"><span comment_count='56147'>1062</span></i> 条评论</div>
+                    </div>
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+    <div class="hot-right">
+        <h3 class="title">24小时创意榜</h3>
+        <ul class="hot-hot">
+            <li class="hot-item pc_ga_originality_0 active">
+                <div class="short">
+                    <h3 class="item-title">1. 青铜小分队</h3>
+                    <span class="like"><i class="iconfont icon-optimistic"></i><span bull_count="58004">1696</span></span>
+                </div>
+                <div class="long clearfix">
+                    <div class="info">
+                        <h3 class="item-title"><a target="_blank" href="https://zhongchou.modian.com/item/58004.html">1. 青铜小分队</a></h3>
+                        <p class="like"><span bull_count="58004">1696</span> 人看好创意</p>
+                    </div>
+                    <div class="img">
+                        <a target="_blank" href="https://zhongchou.modian.com/item/58004.html"><img src="https://p.moimg.net/project/project_20190422_1555913280_5869.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="青铜小分队"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="hot-item pc_ga_originality_1 ">
+                <div class="short">
+                    <h3 class="item-title">2. 马踏肥燕</h3>
+                    <span class="like"><i class="iconfont icon-optimistic"></i><span bull_count="58890">495</span></span>
+                </div>
+                <div class="long clearfix">
+                    <div class="info">
+                        <h3 class="item-title"><a target="_blank" href="https://zhongchou.modian.com/item/58890.html">2. 马踏肥燕</a></h3>
+                        <p class="like"><span bull_count="58890">495</span> 人看好创意</p>
+                    </div>
+                    <div class="img">
+                        <a target="_blank" href="https://zhongchou.modian.com/item/58890.html"><img src="https://p.moimg.net/project/project_20190505_1557048432_2281.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="马踏肥燕"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="hot-item pc_ga_originality_2 ">
+                <div class="short">
+                    <h3 class="item-title">3. 三勿猴</h3>
+                    <span class="like"><i class="iconfont icon-optimistic"></i><span bull_count="59946">446</span></span>
+                </div>
+                <div class="long clearfix">
+                    <div class="info">
+                        <h3 class="item-title"><a target="_blank" href="https://zhongchou.modian.com/item/59946.html">3. 三勿猴</a></h3>
+                        <p class="like"><span bull_count="59946">446</span> 人看好创意</p>
+                    </div>
+                    <div class="img">
+                        <a target="_blank" href="https://zhongchou.modian.com/item/59946.html"><img src="https://p.moimg.net/project/project_20190513_1557733249_4471_crop.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="三勿猴"></a>
+                    </div>
+                </div>
+            </li>
+            <li class="hot-item pc_ga_originality_3 ">
+                <div class="short">
+                    <h3 class="item-title">4. 超治愈公仔闪亮登场</h3>
+                    <span class="like"><i class="iconfont icon-optimistic"></i><span bull_count="55611">637</span></span>
+                </div>
+                <div class="long clearfix">
+                    <div class="info">
+                        <h3 class="item-title"><a target="_blank" href="https://zhongchou.modian.com/item/55611.html">4. 超治愈公仔闪亮登场</a></h3>
+                        <p class="like"><span bull_count="55611">637</span> 人看好创意</p>
+                    </div>
+                    <div class="img">
+                        <a target="_blank" href="https://zhongchou.modian.com/item/55611.html"><img src="https://p.moimg.net/project/project_20190403_1554282130_8198.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="超治愈公仔闪亮登场"></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="pro_field">
+    <div class="pro_field_wrap clearfix">
+        <div class="pro_nav clearfix">
+            <h3>在线项目</h3>
+            <ul class="nav_lists ">
+            </ul>
+            <a target="_blank" href="https://zhongchou.modian.com?_mpos=h_czpro_all" class="more">查看更多 <i class="iconfont icon-nestmore"></i></a>
+        </div>
+        <!--项目卡-->
+        <br>
+
+
+        <ul class="pro_ul clearfix">
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_0" data-pro-id="61151" >
+                <a href="http://39.96.6.181/crowdfunding/108" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190512_1557663565_2053.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="http://39.96.6.181/crowdfunding/108" target="_blank"><h3 class="pro_title">程御迦首本相册画片集《虹泉》：做一本有温度的相册</h3></a>
+                    <div class="author">
+                        <a href="http://39.96.6.181/crowdfunding/107" target="_blank">
+                            <div class="au_logo" style="background: url(https://p.moimg.net/ico/2019/05/12/20190512_1557670452_2607.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100) no-repeat center center;background-size: cover;"></div>
+                            <p>程御迦</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="61151">
+                        <div class="left"><p class="status_title">￥<span backer_money="61151">39,962</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="61151">399.62</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="61151" style="width: 100%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="61151"><span backer_count="61151">226</span> 支持者</p>
+                </div>
+            </li>
+
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_1" data-pro-id="56147">
+                <a href="http://39.96.6.181/crowdfunding/109" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190409_1554799878_6435.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="http://39.96.6.181/crowdfunding/109" target="_blank"><h3 class="pro_title">末那末匠×《懒东西》手办：陪我躺会吧，一起做个懒东西</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=5112011" target="_blank">
+                            <div class="au_logo" style="background: url(https://tvax2.sinaimg.cn/crop.0.0.453.453.180/006IQ98Cly1fd644gykzdj30cm0cmgm2.jpg) no-repeat center center;background-size: cover;"></div>
+                            <p>末那-末匠</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="56147">
+                        <div class="left"><p class="status_title">￥<span backer_money="56147">1,453,163.42</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="56147">1816.45</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="56147" style="width: 100%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="56147"><span backer_count="56147">5323</span> 支持者</p>
+                </div>
+            </li>
+
+
+            <!--众筹成功-->
+            <li class="pc_ga_pro_index_2" data-pro-id="56323">
+                <a href="http://39.96.6.181/crowdfunding/110" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190430_1556610789_8701.gif?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="http://39.96.6.181/crowdfunding/110" target="_blank"><h3 class="pro_title">HBO官方授权！《权力的游戏》3D立体拼图震撼来袭！</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=5238895" target="_blank">
+                            <div class="au_logo" style="background: url(https://tva2.sinaimg.cn/crop.0.0.127.127.180/958e6062gw1f78b8kemxzj203o03kglk.jpg) no-repeat center center;background-size: cover;"></div>
+                            <p>乐立方</p>
+                        </a>
+                    </div>
+                    <div class="status_ex">
+                        <p class="status_title">￥<span backer_money="56323">785,095.45</span></p>
+                        <p class="percent"><span rate="56323">785.1</span>%</p>
+                    </div>
+                    <div class="pro_sucess_logo"></div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="56323" style="width: 100%;"></p>
+
+                    </div>
+                    <p class="gray_ex"><span backer_count="56323">1611</span> 支持者</p>
+                    <div class="pro_sucess_logo"></div></div>
+            </li>
+
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_3" data-pro-id="58009">
+                <a href="http://39.96.6.181/crowdfunding/75" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190422_1555917036_3235.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="http://39.96.6.181/crowdfunding/75" target="_blank"><h3 class="pro_title">《间隔年：给青春一场壮行》——寻找和世界死磕的勇气</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=5496576" target="_blank">
+                            <div class="au_logo" style="background: url(https://p.moimg.net/ico/2019/04/28/20190428_1556430334_4140.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100) no-repeat center center;background-size: cover;"></div>
+                            <p>间隔年项目组</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="58009">
+                        <div class="left"><p class="status_title">￥<span backer_money="58009">7,824.66</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="58009">26.08</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="58009" style="width:26.08%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="58009"><span backer_count="58009">115</span> 支持者</p>
+                </div>
+            </li>
+
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_4" data-pro-id="9128">
+                <a href="https://zhongchou.modian.com/item/9128.html" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190219_1550508238_2179_crop.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="https://zhongchou.modian.com/item/9128.html" target="_blank"><h3 class="pro_title">《Artificiality》女性向解谜ADV游戏</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=1324487" target="_blank">
+                            <div class="au_logo" style="background: url(https://p.moimg.net/ico/2019/01/08/20190108_1546916010_8661.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100) no-repeat center center;background-size: cover;"></div>
+                            <p>悠乙子-</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="9128">
+                        <div class="left"><p class="status_title">￥<span backer_money="9128">10,888</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="9128">217.76</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="9128" style="width: 100%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="9128"><span backer_count="9128">403</span> 支持者</p>
+                </div>
+            </li>
+
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_5" data-pro-id="59885">
+                <a href="https://zhongchou.modian.com/item/59885.html" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190505_1557025059_4625.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="https://zhongchou.modian.com/item/59885.html" target="_blank"><h3 class="pro_title">《我有一座恐怖屋》实体出版——来自那扇门后的问候</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=1968287" target="_blank">
+                            <div class="au_logo" style="background: url(https://p.moimg.net/ico/2019/04/15/20190415_1555319836_7319.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100) no-repeat center center;background-size: cover;"></div>
+                            <p>次元书馆</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="59885">
+                        <div class="left"><p class="status_title">￥<span backer_money="59885">227,481.33</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="59885">2274.81</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="59885" style="width: 100%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="59885"><span backer_count="59885">1245</span> 支持者</p>
+                </div>
+            </li>
+
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_6" data-pro-id="60817">
+                <a href="https://zhongchou.modian.com/item/60817.html" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190510_1557470388_2042.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="https://zhongchou.modian.com/item/60817.html" target="_blank"><h3 class="pro_title">愿你阅尽千帆，归来仍是少年—《少年歌行》周边众筹企划</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=5383329" target="_blank">
+                            <div class="au_logo" style="background: url(https://p.moimg.net/ico/2019/05/10/20190510_1557474191_6723.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100) no-repeat center center;background-size: cover;"></div>
+                            <p>中影年年</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="60817">
+                        <div class="left"><p class="status_title">￥<span backer_money="60817">136,861.99</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="60817">136.86</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="60817" style="width: 100%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="60817"><span backer_count="60817">718</span> 支持者</p>
+                </div>
+            </li>
+
+
+            <!--众筹中-->
+            <li class="pc_ga_pro_index_7" data-pro-id="57037">
+                <a href="https://zhongchou.modian.com/item/57037.html" target="_blank">
+                    <div class="pro_logo">
+                        <img src="https://p.moimg.net/project/project_20190426_1556263195_7477.jpg?imageMogr2/auto-orient/strip%7cimageView2/2/w/400/h/300/q/100" alt="">
+                    </div>
+                </a>
+                <div class="pro_txt_field">
+                    <a href="https://zhongchou.modian.com/item/57037.html" target="_blank"><h3 class="pro_title">《皮克斯》立体书：如果感动拥有代名词，那一定是皮克斯</h3></a>
+                    <div class="author">
+                        <a href="https://me.modian.com/u/detail?uid=4975964" target="_blank">
+                            <div class="au_logo" style="background: url(https://p.moimg.net/project/project_20190305_1551777873_5344_crop.png?imageMogr2/auto-orient/strip%7cimageView2/2/w/120/h/120/q/100) no-repeat center center;background-size: cover;"></div>
+                            <p>自明诚文化</p>
+                        </a>
+                    </div>
+                    <div class="status_ex" pro_id="57037">
+                        <div class="left"><p class="status_title">￥<span backer_money="57037">131,684.88</span></p></div>
+                        <div class="right"><p class="right percent"><span rate="57037">658.42</span>%</p></div>
+                    </div>
+                    <div class="yyue_line">
+                        <p class="progress-now" pro_id="57037" style="width: 100%;"></p>
+                    </div>
+
+                    <p class="gray_ex" pro_id="57037"><span backer_count="57037">619</span> 支持者</p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+
+<style>
+
+    .navbar-default{
+        margin-top:-70px;
+    }
+</style>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script type="text/javascript">
+    $('.slideshow').each( function() {
+        var $slideshow = $(this);
+        $slideshow.imagesLoaded( function() {
+            $slideshow.skidder({
+                slideClass    : '.slide',
+                animationType : 'css',
+                scaleSlides   : true,
+                maxWidth : 1300,
+                maxHeight: 500,
+                paging        : true,
+                autoPaging    : true,
+                pagingWrapper : ".skidder-pager",
+                pagingElement : ".skidder-pager-dot",
+                swiping       : true,
+                leftaligned   : false,
+                cycle         : true,
+                jumpback      : false,
+                speed         : 400,
+                autoplay      : false,
+                autoplayResume: false,
+                interval      : 4000,
+                transition    : "slide",
+                afterSliding  : function() {},
+                afterInit     : function() {}
+            });
+        });
+    });
+    // $('.slideshow-nocycle').each( function() {
+    //   var $slideshow = $(this);
+    //   $slideshow.imagesLoaded( function() {
+    //     $slideshow.skidder({
+    //       slideClass    : '.slide',
+    //       scaleSlides   : true,
+    //       maxWidth : 1300,
+    //       maxHeight: 500,
+    //       leftaligned   : true,
+    //       cycle         : false,
+    //       paging        : true,
+    //       swiping       : true,
+    //       jumpback      : false,
+    //       speed         : 400,
+    //       autoplay      : false,
+    //       interval      : 4000,
+    //       afterSliding  : function() {}
+    //     });
+    //   });
+    // });
+    $(window).smartresize(function(){
+        $('.slideshow').skidder('resize');
+    });
+</script>
+
+<script>
+
+    var z_index=1
+    $(function(){
+            $('.rank>li').each(function(index){
+                $(this).on('click',function(){
+                    $(".rank li").removeClass("active");
+                    var index = $(this).index();
+                    z_index=z_index+1
+                    $(".hot-left-main dl").eq(index).css("z-index",z_index);
+                    $(this).addClass("active")
+                })
+                $(this).on('mouseover',function(){
+                    $(".rank li").removeClass("active");
+                    var index = $(this).index();
+                    z_index=z_index+1
+                    $(".hot-left-main dl").eq(index).css("z-index",z_index);
+                    $(this).addClass("active")
+                })
+            })
+            $('.hot-hot>li').each(function (index) {
+                $(this).on('mouseover',function () {
+                    $(".hot-hot li").removeClass("active")
+                    $(this).addClass("active")
+                })
+            })
+        }
+
+
+
+
+
+    )
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

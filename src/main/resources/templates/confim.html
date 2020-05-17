@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>确认</title>
+    <link rel="stylesheet" href="">
+    <script></script>
+</head>
+<body>
+<nav th:replace="nav::topbar"></nav>
+<div class="row">
+    <h1 class="text-center" th:text="${confimmessage}"></h1>
+</div>
+<script>
+    window.setTimeout("window.location='http://localhost:81/user/login'",5000);
+</script>
+</body>
+</html>

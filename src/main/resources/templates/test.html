@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+
+    <title>个人中心</title>
+
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/web4.0/pagehf.css">
+    <link type="text/css" rel="stylesheet" href="https://s.moimg.net/iconfont/iconfont.css">
+
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/nav_side.css">
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/user_index.css">
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/bank_card.css">
+    <link rel="stylesheet" href="/css/useredit.css">
+    <link rel="stylesheet" href="https://s.moimg.net/activity/css/zc_create_list.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="/css/cropper.min.css">
+    <link rel="stylesheet" href="/css/sitelogo.css" >
+    <link href="css/bwizard.min.css">
+    <link href="css/gear.css">
+    <link href="css/wizard.css">
+    <link href="css/layer.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <script src="layer/layer.js"></script>
+
+    <script src="js/cropper.min.js"></script>
+    <script src="js/sitelogo.js"></script>
+    <script src="js/bwizard.min.js"></script>
+    <script src="ckeditor/ckeditor.js"></script>
+
+
+
+</head>
+<body>
+<form>
+            <textarea name="editor1" id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+
+
+
+    <label  style="font-size: 20px"><H4><strong>众筹时长*    </strong></H4></label>
+    <div class="form-group ">
+
+        期望开始时间<div class="layui-inline form-group has_original"> <!-- 注意：这一层元素并不是必须的 -->
+        <input type="text" name="begin_date" class="layui-input form-control" id="startTime" readonly="" maxlength="20" required>
+
+    </div><strong  >----</strong>
+        结束时间<div class="layui-inline form-group"> <!-- 注意：这一层元素并不是必须的 -->
+        <input type="text" name="end_date" class="layui-input form-control has_original" id="endTime" onblur="checktime()" readonly="" maxlength="20" required>
+
+    </div>
+        <span style="color: red" class="glyphicon-warning-sign" id="warm"></span>
+    </div>
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'editor1' );
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            var startTime =laydate.render({
+                elem: '#startTime',
+                type: 'date',
+                min:0,
+                calendar: true,
+                lang: 'ch',
+                done: function(value, date, endDate) {
+                    endLayDate.config.min = {
+                        year: date.year,
+                        month: date.month - 1,
+                        date: date.date,
+
+                        /* hours: date.hours,
+                         minutes: date.minutes,
+                         seconds: date.seconds +1*/
+                    };
+                    endLayDate.config.max={
+                        year:date.year,
+                        month:data.month-1,
+                        date:data.data+89,
+                    };
+
+//
+                },
+            });
+            /*时间插件*/
+            var endLayDate = laydate.render({
+                elem: '#endTime',
+                type: 'date',
+                max: '2035-12-31 12:30:00',
+                btns: ['clear', 'confirm'],  //clear、now、confirm
+                done: function(value, date, endDate) {
+                    startTime.config.max = {
+                        year: date.year,
+                        month: date.month - 1,
+                        date: date.date,
+                        /*  hours: date.hours,
+                          minutes: date.minutes,
+                          seconds: date.seconds -1*/
+                    };
+                    startTime.config.min={
+                        year: date.year,
+                        month: date.month - 1,
+                        date: date.date+89,
+                    }
+
+                },
+            });
+
+        });
+    </script>
+</form>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/web4.0/pagehf.css">
+    <link type="text/css" rel="stylesheet" href="https://s.moimg.net/iconfont/iconfont.css">
+
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/nav_side.css">
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/user_index.css">
+    <link rel="stylesheet" type="text/css" href="https://s.moimg.net/css/user/bank_card.css">
+    <link rel="stylesheet" href="/css/useredit.css">
+    <link rel="stylesheet" href="https://s.moimg.net/activity/css/zc_create_list.css?t=?20171213d9etsd32s3g5e4de2dgchdile0sdss">
+    <link rel="stylesheet" href="/css/cropper.min.css">
+    <link rel="stylesheet" href="/css/sitelogo.css" >
+    <script src="js/cropper.min.js"></script>
+    <script src="js/sitelogo.js"></script>
+    <script src="js/main.js"></script>
+
+    <script src="js/distpicker.data.js"></script>
+    <script src="js/distpicker.js"></script>
+
+
+<!--    <script src="js/main.js"></script>-->
+
+</head>
+<body>
+<script th:replace="nav::logoout"></script>
+
+<nav th:replace="nav::topbar"></nav>
+<div id="container">
+<div class="main-wrap clearfix" data-type="user_info_edit"  >
+
+
+    <div class="nav-side">
+        <div class="item header">
+            <a href="https://me.modian.com/u/user_index">
+                <div class="logo me_nickname_icon"><img  v-bind:src="user.acvtor" class="logo"> <p>{{user.username}}</p></div>
+            </a>
+        </div>
+
+
+        <div class="item" id="subscribe_project" style="display:none;">
+            <h4>我的云养计划</h4>
+        </div>
+        <div class="item" id="my_dynamic" style="">
+            <h4>我的项目</h4>
+            <ul>
+                <li data-type="dynamic" ><a href="/release">发布众筹</a></li>
+                <li data-type="manager"><a href="#">众筹管理</a></li>
+
+            </ul>
+        </div>
+
+
+        <div class="item" id="my_founction" style="display:none;">
+            <h4>基金会管理</h4>
+            <ul>
+                <li data-type="affiche_list"><a href="#">信息公告</a></li>
+
+
+                <li data-type="user_raise_list"><a href="#">我参与的云养计划</a></li>
+            </ul>
+        </div>
+
+        <div class="item">
+            <h4>我的项目信息</h4>
+            <ul>
+                <li data-type="create"><a href="/mycrowdfunding">发起的项目 <span id="pro_num"></span></a></li>
+
+            </ul>
+        </div>
+        <div class="item">
+            <h4>订单信息</h4>
+            <ul>
+                <li data-type="index"><a href="/myorder">我的订单</a></li>
+
+            </ul>
+        </div>
+        <div class="item">
+            <h4>我的设置</h4>
+            <ul>
+                <li class="user_info_edit active" data-type="info"><a href="/useredit">个人资料</a></li>
+                <li class="user_auth_view" data-type="auth_console"><a href="#">账号认证</a></li>
+
+                <li data-type="delivery_address"><a href="#">管理地址薄</a></li>
+                <li data-type="safe"><a href="#">账户与安全</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="main_right self user_auth">
+        <div class="column detail">
+            <p>个人资料</p>
+            <p></p>
+        </div>
+
+
+
+
+
+        <div class="detail center " >
+<!--            <div  id="crop-avatar">-->
+<!--                <label>头像</label>-->
+<!--                <div class="item_r avatar-view " v-bind:title="msg" v-on:click="editimg" >-->
+<!--                    <img style="border: #101010 1px" src="http://q.qlogo.cn/qqapp/1103300332/D4B4F4268C2DA0322D57BEFB0CCB117D/100"-->
+<!--                         onerror="javascript:this.src='https://s.moimg.net/img/web4-0/default_profile@3x.png'">-->
+
+<!--                </div>-->
+<!--            </div>-->
+            <div id="crop-avatar">
+                <div class="avatar-view" title="点击修改头像">
+                    <img v-if="user.acvtor==''||user.acvtor==null" src="/image/no_avatar.jpg"  alt="无头像" >
+                    <img  v-else v-bind:src="user.acvtor" id="acvtor">
+
+
+                </div>
+            </div>
+            <div class="item">
+                <label v-bind:title="usernamemsg">您的昵称</label>
+                <div class="item_r nickname">
+                    <p >{{user.username}}</p>
+                </div>
+            </div>
+            <div class="item">
+                <label v-bind:title="emailmsg">您的邮箱</label>
+                <div class="item_r nickname">
+                    <p >{{user.email}}</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <label>手机号</label>
+                <div class="item_r">
+                    <p class="nobb" v-if="user.phonenum==2||user.phonenum==null">未填写</p>
+                    <p class="nobb" v-else>{{user.phonenum}} </p>
+
+                </div>
+            </div>
+            <div class="item bank">
+                <label>居住地</label>
+                <div class="item_r">
+                    <p class="nobb" v-if="user.habitation==''||user.habitation==null">未填写</p>
+                    <p class="nobb" v-else>{{user.habitation}} </p>
+                </div>
+            </div>
+            <div class="item bank">
+                <label>家乡</label>
+                <div class="item_r">
+                    <p class="nobb" v-if="user.hometown==''||user.hometown==null">未填写</p>
+                    <p class="nobb" v-else>{{user.hometown}} </p>
+                </div>
+            </div>
+            <div class="item">
+                <label>个人简介</label>
+                <div class="item_r">
+                    <p class="nobb" v-if="user.textArea==2||user.textArea==null">未填写</p>
+                    <p class="nobb" v-else>{{user.textArea}} </p>
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn-lg btn-primary" v-on:click="edituser">编辑资料</button>
+    </div>
+    <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label"
+         role="dialog"
+         tabindex="-1">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form class="avatar-form"
+                      action="/imgupload"
+                      enctype="multipart/form-data" method="post">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" type="button">&times;</button>
+                        <h4 class="modal-title" id="avatar-modal-label">请选择头像</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="avatar-body">
+                            <div class="avatar-upload">
+                                <input class="avatar-src" name="avatar_src" type="hidden">
+                                <input class="avatar-data" name="avatar_data" type="hidden">
+                                <label for="avatarInput">图片上传</label>
+                                <input class="avatar-input" id="avatarInput" name="avatar_file"
+                                       type="file">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="file-type">
+                                        支持JPG，PNG，图片小于<em>1MB</em>，尺寸<em>不小于180*180</em>，真实高清头像更受欢迎！
+                                    </div>
+                                    <div class="avatar-wrapper">
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="title">头像预览</div>
+                                    <div class="avatar-preview preview-md">
+                                    </div>
+                                    <div class="avatar-btns">
+                                        <button class="btn btn-primary" type="submit" v-on:click="imgedit">
+                                            保存修改
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">个人信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" method="post" action="/edituser">
+                        <div class="form-group">
+                            <label>手机号</label>
+                            <input type="text" name="user.phonenum" v-bind:value="user.phonenum" class="form-control" maxlength="11" id="title2" required  >
+                        </div>
+
+                        <input hidden="hidden" type="text"  name="id">
+
+
+                        <div data-toggle="distpicker">
+                            <div class="form-group" >
+                                <label>居住地</label>
+                                <div class="form-inline">
+                                    <select name="habitation.province" class="form-control" id="province1" maxlength="20">
+                                    </select>
+                                    <select name="habitation.city" class="form-control" id="city1" maxlength="20">
+                                    </select>
+                                    <select name="habitation.district" class=" form-control " id="district1" maxlength="20">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-toggle="distpicker">
+                            <div class="form-group" >
+                                <label>家乡</label>
+                                <div class="form-inline">
+                                    <select name="hometown.province" class="form-control" id="province2" maxlength="20">
+                                    </select>
+                                    <select name="hometown.city" class="form-control" id="city2" maxlength="20">
+                                    </select>
+                                    <select name="hometown.district" class=" form-control " id="district2" maxlength="20">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="bio">简介</label>
+                            <textarea type="text" class="form-control" id="bio" name="user.textArea" rows="12">{{user.textArea}}</textarea>
+                        </div>
+                        <input hidden="hidden" type="text"  name="id" v-bind:value="user.id">
+
+
+                        <div class="modal-footer">
+                            <a><button type="button" class="btn btn-default" data-dismiss="modal">取消</button></a>
+                            <button type="submit" class="btn btn-primary" v-on:clink="useredit">提交</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+</div>
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+
+
+
+
+
+
+    var app=new Vue({
+        el:"#container",
+        data:{
+            msg:"双击图片,更换头像",
+            usernamemsg:"名称不能修改",
+            emailmsg:"邮箱不能更改",
+            user:{},
+
+        },
+
+
+
+
+        created(){
+            fetch("/getuserbyid",
+
+            )
+                .then(response=>response.json())
+                .then(json=>{
+                    this.user=json;
+                    console.log(this.user);
+                    console.log("____");
+                    console.log(json)
+                })
+        },
+
+
+        methods:{
+
+            edituser:function () {
+                $('#editModal').modal('show')
+
+
+            },
+
+
+
+
+
+
+            // useredit:function () {
+            //     fetch("/getuserbyid",
+            //
+            //     )
+            //         .then(response=>response.json())
+            //         .then(json=>{
+            //             this.user=json;
+            //             console.log(this.user);
+            //             console.log("____");
+            //             console.log(json)
+            //         })
+            // }
+
+        }
+
+
+
+    })
+
+
+
+</script>
+<script>
+    $("#acvtor").on('change', function () {
+        alert($("#acvtor").getAttirbute("src"))
+        console.log("_____++++++++++++++")
+    });
+</script>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>打赏</title>
+    <link rel="stylesheet" href="/css/freesupport.css">
+    <link rel="stylesheet" href="/css/zhifubao.css.css">
+
+</head>
+<body>
+<script th:replace="nav::logoout"></script>
+<nav th:replace="nav::topbar"></nav>
+<div class="npay_module">
+
+    <form action="/alipay/gofreepay"  method="post" id="pay-form" name="payment"  accept-charset="UTF-8">
+        <!--target="_blank"    加上就不会在本页面跳转 切记切记-->
+
+        <input type="hidden" id='js_return' name="js_return" value=""/>
+        <input type="hidden" id="id" name="id" value="57037"/>
+        <input type="hidden" id="rid" name="rid" value="-3"/>
+        <input type="hidden" id="money" name="money" value="10"/>
+        <input type="hidden" id="total" name="total" value="1"/>
+        <!--填写收货地址-->
+        <!--确认订单信息-->
+        <div class="new_paywarp">
+            <div class="edit_order_info">
+                <div class="order_info_fl">
+                    <p class="address_title">确认订单信息：</p>
+                    <div class="order_fl_list order-money"
+                         data-money="0">
+                        <div class="fl">回报档</div>
+                        <div class="fr">
+                            无偿支持
+                        </div>
+                    </div>
+                    <div class="order_fl_list extra-pay">
+                        <div class="fl">打赏</div>
+                        <div class="fr">
+                            <div class="input">
+                                <input type="text" name="added_money" value="10" id="added_money" placeholder="您可以输入更多金额"  onkeyup=value=value.replace(/[^\d]/g,''),changemoney(); />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order_fl_list remark">
+                        <div class="fl">留言</div>
+                        <!--                            <div class="fl">留言</div>-->
+                        <div class="fr">
+                            <div class="input">
+                                <input type="text" name="description" id="description" placeholder="请输入特殊要求" value=""  />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order_info_fr">
+                    <div>
+                        <p >￥<span id="finalmoney">10</span>.00</p>
+                        <p>实际支付金额</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--选择支付方式-->
+        <div class="new_paywarp">
+            <div class="new_paytype">
+                <div class="paycate">
+                    <div class="chose_paytype fl">选择支付方式：</div>
+                    <div class="pay_type_list fl">
+
+                        <label>
+                            <span class="pay_chosebtn" style="background-position: -30px -76px"></span>
+                            <span class="zhifubaoimg"></span>
+                            <input id="alipay" type="radio" name="pay" value="alipay">
+                        </label>
+                        <input type="hidden" id="client_ip" value=''/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 风险提示 -->
+        <div class="new_paywarp">
+            <div class="risk-warning">
+                <div class="fr">
+                    <p>1. 点击“提交订单”，即表明您已阅读并同意<a target="_blank" href="https://zhongchou.modian.com/about/index/3/3.html?_mpos=h_foot_aboutus">《支持者协议》</a>及<a href="https://zhongchou.modian.com/about/index/3/4.html?_mpos=h_foot_aboutus" target="_blank">《隐私权政策》</a>，并自愿承担众筹相应风险。</p>
+                    <p>2. 摩点网提请您注意，参与众筹是支持将创意变为现实的过程，而非直接购买一件现成的商品，风险是不可避免的。众筹的回报产品和承诺由众筹发起人提供和作出，摩点网不参与和担保众筹项目的具体运作。</p>
+                </div>
+                <div class="fl">免责协议：</div>
+            </div>
+        </div>
+        <!--footer-->
+        <div class="npay-placeholder" style="display:none"></div>
+        <div class="npay-submit order-pay">
+            <div class="new_paywid">
+                <input type="submit" id="sumbitorder" value="提交订单 ¥10.00" class="backbtn" >
+                <span class="edit_color_txt edit_margleft">请在下单后10分钟内支付，过期将失效</span>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+
+
+
+    function changemoney() {
+        var money=document.getElementById("added_money").value;
+        $("#finalmoney").html(money)
+        $("#sumbitorder").val("提交订单 ¥"+money+".00")
+
+    }
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

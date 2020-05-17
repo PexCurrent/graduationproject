@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>登陆</title>
+    <link rel="stylesheet" href="">
+    <script></script>
+</head>
+<body>
+<div style="padding: 15px;">
+
+    <div class="demoTable">
+        搜索商户：
+        <div class="layui-inline">
+            <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload" id="searchbtn">搜索</button>
+    </div>
+    <table class="layui-hide" id="LAY_table_user" lay-filter="useruv" style="line-height: 28px;"></table>
+
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+
+<script>
+
+
+    layui.use('table', function(){
+        var table = layui.table;
+        //方法级渲染
+        table.render({
+
+            elem: '#LAY_table_user'
+            ,url: 'getingcrowfundingtable'
+
+            ,cols: [
+                [
+                    {checkbox: true, fixed: true}
+                    ,{field:'id', title: 'ID', width:80, sort: true, fixed: true}
+                    ,{field: 'showpic', title: '项目图片', width: 90, templet:'<div><img src="{{ d.showpic }}" width="300" height="300" onerror="javascript:this.src=\'https://s.moimg.net/new/images/default.jpg\'" class="layui-nav-img"></div>'}
+                    ,{field:'title', title: '标题', width:200, sort: true}
+                    ,{field:'content', title: '简介', width:160, sort: true,edit:true}
+                    ,{field:'creatername', title: '建立者', width:100,sort: true}
+                    ,{field:'targetamount', title: '目标金额', width:100,sort: true}
+                    ,{field:'currentamout', title: '当前金额', width:100,sort: true}
+                    ,{field:'supporttime', title: '支持次数', width:100,sort: true}
+                    ,{field:'begin_date', title: '开始日期', width:120,sort: true}
+                    ,{field:'end_date', title: '结束日期', width:120,sort: true}
+                    ,{field: 'status', title: '状态', width:80, sort: true, }
+                    , {field:'right', title: '操作', width:300,toolbar:"#barDemo"}
+                    // ,{field:'datatype', title: '日期类型', width:100}
+                ]
+            ]
+            ,page: true
+            ,height: 600
+        });
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                table.reload('LAY_table_user', {
+                    where: {
+                        keyword: demoReload.val()
+
+                    }
+                });
+            }
+        };
+
+        $('#searchbtn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        table.on('checkbox(useruv)', function(obj){
+            console.log(obj)
+        });
+
+
+
+        //监听工具条
+        table.on('tool(useruv)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'detail'){
+                layer.msg('ID：'+ data.id + ' 的查看操作');
+                url="/Crowdfundingdemo/"+data.id
+
+                setTimeout("javascript:location.href=url", 1000);
+            } else if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
+                        url: "UVServlet",
+                        type: "POST",
+                        data:{"uvid":data.id,"memthodname":"deleteuv"},
+                        dataType: "json",
+                        success: function(data){
+
+                            if(data.status==0){
+                                obj.del();
+                                layer.close(index);
+                                layer.msg("删除成功", {icon: 6});
+                            }else{
+                                layer.msg("删除失败", {icon: 5});
+                            }
+                        }
+
+                    });
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                // layer.prompt({
+                //     formType: 2
+                //     ,title: '修改 ID 为 ['+ data.id +'] 的访问量'
+                //     ,value: data.uv
+                // }, function(value, index){
+                //
+                //
+                //
+                //
+                // });
+                layer.confirm('真的批准通过这个项目吗', function(index){
+                    $.ajax({
+                        url: "checkcrowfunding",
+                        type: "POST",
+                        data:{"uvid":data.id,"memthodname":"deleteuv"},
+                        dataType: "json",
+                        success: function(data){
+
+                            if(data.status!=0){
+
+
+                                layer.msg("审核成功", {icon: 6});
+                                table.reload('LAY_table_user', {
+                                    // where: {
+                                    //     keyword: demoReload.val()
+                                    //
+                                    // }
+                                });
+                            }else{
+                                layer.msg("审核失败", {icon: 5});
+                            }
+                        }
+
+                    });
+                    layer.close(index);
+                });
+
+
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

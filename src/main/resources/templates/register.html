@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<head th:include="nav::head">-->
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>注册</title>
+    <link rel="stylesheet" href="">
+    <script></script>
+
+</head>
+
+<body>
+<script th:replace="nav::logoout"></script>
+<nav th:replace="nav::topbar"></nav>
+
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+<!--        http://localhost:81/user/Toregister/-->
+<!--        onsubmit="return false"-->
+        <form class='form-register'   id="form-register" onsubmit="return false">
+<!--           <div  class="alert alert-warning" th:text="${message}" th:if="${message!=null}" ></div>-->
+          <div  class="alert alert-warning hide" id="warm" ></div>
+
+
+            <input type="hidden" name="csrfmiddlewaretoken" value="UtpI2hOfGhDrhcJpdymeHku4ZGeeualsKLW86jv7ImtgWhcbwKn1axqVtP9gor63" >
+            <h2 class="text-center">欢迎注册</h2>
+            <label for="id_username">用户名:</label>
+            <div class="form-group margin-bottom-sm input-group">
+                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                <input type="text" name="username"  class="form-control" maxlength="15" minlength="4" required id="id_username" onblur="check_user_exist(this.value)">
+            </div>
+            <label for="id_password1">密码:</label>
+            <div class="form-group margin-bottom-sm input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+
+                <input type="password" name="password" class="form-control" maxlength="15" minlength="6" required id="id_password1" onblur="check_password(this.value)" >
+            </div>
+            <label for="id_password2">确认密码:</label>
+            <div class="form-group margin-bottom-sm input-group">
+                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                <input type="password" name="password2" class="form-control" maxlength="15" minlength="6" required id="id_password2" onblur="check_password2(this.value)">
+            </div>
+
+            <label for="id_email">邮箱地址:</label>
+            <div class="form-group margin-bottom-sm input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                <input type="email" name="email" class="form-control email" required id="id_email" onblur="check_email_exist(this.value)">
+            </div>
+<!--            <div class="form-group margin-bottom-sm input-group">-->
+<!--                <label for="id_sex">性别:</label>-->
+<!--                <select name="sex" id="id_sex">-->
+<!--                    <option value="0">男</option>-->
+
+<!--                    <option value="1">女</option>-->
+
+<!--                </select>-->
+<!--            </div>-->
+            <div class="form-group ">
+
+                <label for="id_captcha">验证码:</label>
+                <img id="captcha" src="/img/code" alt="captcha" class="captcha" onClick="refresh()"/>
+                <input type="hidden" name="captcha_0" value="d1c14c7ef060c3bbc2dd1f24c8079b92c4288301" required id="id_captcha_0">
+                <input type="text" name="id_captcha" required id="id_captcha" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" onblur="check_captcha(this.value)">
+            </div>
+
+            <button type="reset" class="btn btn-default pull-left">重置</button>
+            <button type="button" class="btn btn-primary pull-right" onclick="commit()">提交</button>
+
+        </form>
+    </div>
+</div> <!-- /container -->
+
+
+<script type="text/javascript">
+//     $(document).ready(function() {
+//
+// // 任何需要执行的js特效
+//
+//     });
+   var checkuser=false;
+   var checkpassord=false;
+   var checkpassord2=false;
+   var checkemail=false;
+   var checkcaptcha=false;
+    function commit() {
+
+
+        var username=$("#id_username").val();
+        var password=$("#id_password1").val();
+        var password2=$("#id_password2").val();
+        var  email=$("#id_email").val();
+        // var sex=$("#id_sex").val();
+        var id_captcha=$("#id_captcha").val();
+
+
+        var user={
+            username:username,
+            password:password,
+            email:email,
+            // sex:1,
+
+        };
+               if (!checkuser){
+
+                   layer.msg('注册失败 用户名长度不符合或者已经被使用'+username,{icon:2,zIndex:layer.zIndex+100});
+
+               }
+               else if (!checkpassord){
+                   layer.msg('注册失败 密码长度不符合',{icon:2,zIndex:layer.zIndex+100});
+               }else if (!checkpassord2){
+                   layer.msg('注册失败 2次输入的密码不同',{icon:2,zIndex:layer.zIndex+100});
+               }else if (!checkemail){
+                   layer.msg('注册失败 邮箱不规范或者已经被使用',{icon:2,zIndex:layer.zIndex+100});
+               }else if (!checkcaptcha){
+                   layer.msg('注册失败 验证码填写错误',{icon:2,zIndex:layer.zIndex+100});
+               }else{
+
+                   $.ajax("/Toregister/",{
+                           type:"post",
+                           dataType:"json",
+                           data: JSON.stringify(user),
+                           contentType:"application/json",
+                           success:function (data) {
+                               layer.msg('注册成功 请及时使用邮箱激活账户',{icon:1,zIndex:layer.zIndex+100});
+                               // window.setTimeout("window.location='http://localhost:81/user/login'",2000);
+                               setTimeout("javascript:location.href='http://localhost:8800/login'", 2000);
+                               // $('#warm').removeClass("hide");
+                               // $("#warm").html(result)
+                           },
+                           error:function () {
+                               layer.msg('注册失败 未知错误',{icon:2,zIndex:layer.zIndex+100});
+
+                           }
+                       }
+
+                   );
+
+               }
+
+
+
+
+
+
+
+
+        return false;
+
+
+    }
+
+
+    function refresh() {
+        document.getElementById('captcha').src="/img/code?"+Math.random();
+    }
+
+    
+     function check_user_exist(str) {
+
+        if (str.length>15||str.length<4){
+            $('#warm').removeClass("hide");
+            $("#warm").html("用户名长度过长或过短");
+            checkuser=false;
+
+
+        }
+
+        // if(str==""||str==null){
+        //     $('#warm').removeClass("hide");
+        //     $("#warm").html("请输入用户名");
+        //     check=false;
+        //     return  check
+        //
+        // }
+        else {
+            $.ajax("/check_user_exist/",{
+                type:"post",
+
+
+                data: {"username":str},
+                contentType:"application/x-www-form-urlencoded",
+                success:function (data) {
+                    $('#warm').removeClass("hide");
+                    $("#warm").html(data["message"]);
+                    if(data["status"]==true){
+
+                        checkuser=true;
+                    }
+                    else{
+                        checkuser=false;
+                    }
+
+
+
+
+                    // $('#warm').removeClass("hide");
+                    // $("#warm").html(result)
+                },
+                error:function (message) {
+                    $('#warm').removeClass("hide");
+                    $("#warm").html("出错了");
+                    checkuser=false;
+
+                }
+            });
+        }
+return check
+
+     }
+
+
+function check_email_exist(str) {
+
+
+    var myreg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+    if(!myreg.test(str)){
+        $('#warm').removeClass("hide");
+        $("#warm").html("请输入正确邮箱格式")
+        checkemail=false
+
+    }else {
+        $.ajax("/check_email_exist/",{
+            type:"post",
+            data: {"email":str},
+            contentType:"application/x-www-form-urlencoded",
+            success:function (data) {
+                $('#warm').removeClass("hide");
+                $("#warm").html(data["message"])
+                if(data["status"]==true){
+                    checkemail=true
+                }
+                else{
+                    checkemail=false
+                }
+
+                // $('#warm').removeClass("hide");
+                // $("#warm").html(result)
+            },
+            error:function (message) {
+                checkemail=false
+            }
+        });
+    }
+
+
+}
+
+
+
+function check_password(str) {
+    if(str.length>15||str.length<6){
+        $('#warm').removeClass("hide");
+        $("#warm").html("确认长度过长或者过短")
+        checkpassord=false;
+    }
+    checkpassord=true;
+}
+function check_password2(str) {
+    if ($("#id_password1").val()!=str){
+        $('#warm').removeClass("hide");
+        $("#warm").html("两次密码不同")
+        checkpassord2=false
+    }
+    checkpassord2=true
+}
+
+
+
+
+      function check_captcha(str) {
+          if(str==""||str==null){
+              $('#warm').removeClass("hide");
+              $("#warm").html("验证码不能为空")
+              checkcaptcha=false;
+
+
+          }else{
+              $.ajax("/check_captch/",{
+                  type:"post",
+
+
+                  data: {"captcha":str},
+                  contentType:"application/x-www-form-urlencoded",
+                  success:function (data) {
+                      $('#warm').removeClass("hide");
+                      $("#warm").html(data["message"])
+                      if(data["status"]==true){
+                          checkcaptcha=true;
+                      }
+                      else{
+                          checkcaptcha=false;
+                      }
+
+                      // $('#warm').removeClass("hide");
+                      // $("#warm").html(result)
+                  },
+                  error:function (data) {
+                      checkcaptcha=false;
+
+                  }
+              });
+          }
+
+      }
+
+
+
+     // function toregister() {
+     //    var username=$("#id_username").val();
+     //    var password=$("#id_password1").val();
+     //    var password2=$("#id_password2").val();
+     //    var  email=$("#id_email").val();
+     //    var sex=$("#id_sex").val();
+     //    var id_captcha=$("#id_captcha").val();
+     //     var user={
+     //         username:username,
+     //         password:password,
+     //         email:email,
+     //         sex:parseInt(sex) ,
+     //         id_captcha:id_captcha,
+     //
+     //     };
+     //
+     //
+     //    if(username==null||password==null||password2==null||email==null||sex==null==id_captcha==null){
+     //        $('#warm').removeClass("hide");
+     //        $("#warm").html("请完整填完注册信息")
+     //    }
+     //
+     //
+     //
+     //   else  if (password!=password2){
+     //        $('#warm').removeClass("hide");
+     //        $("#warm").html("两次输入的密码不同！")
+     //
+     //    }else {
+     //
+     //        $.ajax("http://localhost:81/user/Toregister/",{
+     //                type:"post",
+     //                // dataType:"json",
+     //                // data:JSON.stringify(parms),
+     //
+     //            data: JSON.stringify(user),
+     //                contentType:"application/json",
+     //                success:function (msg) {
+     //                    $('#warm').removeClass("hide");
+     //                    $("#warm").html(msg)
+     //
+     //                    // $('#warm').removeClass("hide");
+     //                    // $("#warm").html(result)
+     //                },
+     //            error:function (message) {
+     //                    alert("出错了")
+     //
+     //            }
+     //            }
+     //
+     //        );
+     //    }
+     //
+     //
+     //
+     //    };
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

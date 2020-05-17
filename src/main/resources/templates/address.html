@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="nav::head(~{::title},~{::link},~{::script})">
+    <title>地址簿</title>
+    <link rel="stylesheet" href="/css/address.css" >
+
+    <script src="/distpicker/distpicker.data.js" ></script>
+    <script src="/distpicker/distpicker.js" ></script>
+    <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js" charset="UTF-8"></script>
+
+
+
+</head>
+<body>
+<nav th:replace="nav::topbar"></nav>
+<div class="container" id="container">
+
+
+
+    <button type="button" class="btn btn-primary" v-on:click="add()">新增收货地址</button>
+
+
+    <hr>
+    <div id="ifo">
+    <ul class="add-list" style="min-height: 300px;" v-for="address in addresses">    <li class="clear">
+    <div class="add-where fl">
+
+
+        {{address.theme}}
+        <p style="color: red">{{address.title}}</p>
+
+        <span v-if="address.isdefault==1" class="setOn">(默认地址)</span>
+
+    </div>
+    <div class="detail-add fl">
+        <a class="del-add" address_id="91457" href="javascript:void(0);"></a>
+        <ul class="detail-add-key fl">
+            <li>收货人</li>
+            <li>所在地区</li>
+            <li>详细地址</li>
+            <li>手机号</li>
+
+        </ul>
+        <ul class="detail-add-val ">
+            <li>{{address.receiver}} </li>
+            <li>{{ address.province }} {{ address.city }} {{ address.district }} </li>
+            <li>{{ address.province }} {{ address.city }} {{ address.district }}  {{address.place}}</li>
+            <li>{{ address.mobile }}</li>
+
+        </ul>
+        <div class="improve-add">
+            <div class="improve-add-bg"></div>
+            <p>为提升收货速度和准确性，请点击<a href="javascript:;" class="improve-this" address_id="91457">升级地址</a>完善信息</p>
+        </div>
+    </div>
+
+    <div class="change-add">
+        <a class="change-this"  v-bind:href="'setdefaultaddress/'+address.id"  ><span class="change-bg add-bg fl"></span>设为默认地址</a>
+        <a class="change-this" v-on:click="edit(address.id)"  ><span class="change-bg add-bg fl"></span>修改本地址</a>
+        <a class="change-this" v-bind:href="'/deladdress/'+address.id"  style="color:#cb3d22"><span class="change-bg add-bg fl"></span>删除地址</a>
+
+    </div>
+</li>
+
+    </ul>
+</div>
+
+
+
+
+<!--    <H2 >暂无地址</H2>-->
+
+
+
+
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form  method="post" action="/insertaddress">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="u7LkB4c8I66k67ahfIjmKL0BIBStVeHGyhzJHN7XFmLggipYkiGzVTZuzduadxYK">
+                        <div class="form-group">
+                            <label>地址名称(如家/公司)</label>
+                            <input type="text" name="theme" class="form-control" maxlength="20" required id="id_title">
+                        </div>
+                        <div class="form-group">
+                            <label>收货人</label>
+                            <input type="text" name="receiver" class="form-control" maxlength="20" required id="id_receiver">
+                        </div>
+                        <div data-toggle="distpicker">
+                            <div class="form-group" >
+                                <label>所在地址</label>
+                                <div class="form-inline">
+                                    <select name="province" class="form-control" id="province1" maxlength="20">
+                                    </select>
+                                    <select name="city" class="form-control" id="city1" maxlength="20">
+                                    </select>
+                                    <select name="district" class=" form-control " id="district1" maxlength="20">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>详细地址</label>
+                            <input type="text" name="place" class="form-control" maxlength="50" required id="id_place">
+                        </div>
+                        <div class="form-group">
+                            <label>联系电话</label>
+                            <input type="text" name="mobile" class="form-control" maxlength="11" required id="id_mobile">
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" v-on:click="addSubForm">提交</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" method="post" action="/updateaddress">
+                        <div class="form-group">
+                            <label>地址名称(如家/公司)</label>
+                            <input type="text" class="form-control" name="id" id="id" style="display: none">
+                            <input type="text" name="theme" class="form-control" maxlength="20" id="title2" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>收货人</label>
+                            <input type="text" name="receiver" class="form-control" maxlength="20" id="receiver2" required>
+
+                        </div>
+                        <div data-toggle="distpicker">
+                            <div class="form-group" >
+                                <label>所在地址</label>
+                                <div class="form-inline">
+                                    <select name="province" class="form-control" id="province2" maxlength="20">
+                                    </select>
+                                    <select name="city" class="form-control" id="city2" maxlength="20">
+                                    </select>
+                                    <select name="district" class=" form-control " id="district2" maxlength="20">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>详细地址</label>
+
+                            <input type="text" name="place" class="form-control" maxlength="50" id="place2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>联系电话</label>
+                            <input type="text" name="mobile" class="form-control" maxlength="11" id="mobile2" required>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <a><button type="button" class="btn btn-default" data-dismiss="modal">取消</button></a>
+                            <button type="submit" class="btn btn-primary" v-on:click="addSubForm">提交</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    // $('#addModal').modal('show');
+    // $('#addModal').modal('show');
+    var app1=new Vue({
+        el:"#container",
+        data:{
+            addresses:{}
+        },
+        created(){
+            fetch("/getressedit")
+                .then(response=>response.json())
+                .then(json=>{
+                    this.addresses=json.addresses;
+                    console.log(this.addresses);
+                    console.log("____")
+                    console.log(json)
+                })
+        },
+
+        methods: {
+            // 获取需要渲染到页面中的数据
+            getShowData:function(arr) {
+                this.cloneTableDatas = JSON.parse(JSON.stringify(arr));
+            },
+            //新增
+            add: function () {
+                $('#addModal').modal('show');
+            },
+            //提交新增
+            addSubForm:function(){
+                this.tableData.id = this.tableDatas.length + 1;
+                this.tableDatas.push(this.tableData);
+                this.getShowData(this.tableDatas);
+                this.tableData = { };
+                $('#addModal').modal('hide');
+            },
+            //编辑
+            edit: function (index) {
+                 console.log(index);
+                $.ajax("/getedit/",{
+                        type:"post",
+                        dataType:"json",
+                        data: {"id":index},
+                        contentType:"application/x-www-form-urlencoded",
+                        success:function (data) {
+                            // layer.msg('注册成功 请及时使用邮箱激活账户',{icon:1,zIndex:layer.zIndex+100});
+                            // // window.setTimeout("window.location='http://localhost:81/user/login'",2000);
+                            // setTimeout("javascript:location.href='http://localhost:81/user/login'", 2000);
+                            // // $('#warm').removeClass("hide");
+                            // // $("#warm").html(result)
+                            console.log(data);
+                                     console.log(data)
+                                    var receiver=data['receiver'];
+                                    var id=data['id'];
+                                    var province=data['province'];
+                                    var place=data['place'];
+                                    var  mobile=data['mobile'];
+                                    var title=data['theme'];
+                                    var district=data['district'];
+                                    var city=data['city'];
+                                    console.log(title)
+                                    $("#receiver2").val(receiver);
+                                    $("#id").val(id);
+                                    $("#province2").val(province);
+                                    $("#place2").val(place);
+                                    $("#title2").val(title);
+                                    $("district2").val(district);
+                                    $("city2").val(city);
+                                    $("#mobile2").val(mobile);
+                        },
+                        error:function () {
+                            layer.msg('未知错误',{icon:2,zIndex:layer.zIndex+100});
+
+                        }
+                    }
+
+                );
+
+
+
+                $('#editModal').modal('show');
+                this.selected = index;
+                this.selectedlist = JSON.parse(JSON.stringify(this.tableDatas))[index];
+            },
+            //提交编辑
+            editSubForm:function() {
+                Vue.set(this.tableDatas, this.selected, this.selectedlist);
+                this.getShowData(this.tableDatas);
+                $('#editModal').modal('hide');
+            },
+
+        }
+
+
+
+    });
+
+
+
+    // var app=new Vue({
+    //     el:"#container",
+    //     data:{
+    //         selected: -1,
+    //         selectedlist: { },
+    //         tableData:{"id":0,"firstName":"","lastName":"","userName":""},
+    //         tableDatas:[
+    //
+    //         ],
+    //         cloneTableDatas:[ ],
+    //         search : ""
+    //     },
+    //     //在实例被创建之后被调用
+    //     created: function () {
+    //         this.getShowData(this.tableDatas);
+    //     },
+
+    // })
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+.zhifubaoimg {
+    display: inline-block;
+    width: 80px;
+    height: 24px;
+    background: url("/img/6.png") no-repeat;
+    background-position: 0px -5px;
+    padding: 1px 0;
+}
